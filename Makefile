@@ -1,54 +1,61 @@
-# Color definitions
-RESET   = \033[0m       # Reset color
-RED     = \033[31m      # Red text
-GREEN   = \033[32m      # Green text
-YELLOW  = \033[33m      # Yellow text
-BLUE    = \033[34m      # Blue text
-CYAN    = \033[36m      # Cyan text
-BOLD    = \033[1m       # Bold text
-UNDERLINE = \033[4m     # Underlined text
+# ================= Colors =================
+RESET     = \033[0m
+RED       = \033[31m
+GREEN     = \033[32m
+YELLOW    = \033[33m
+CYAN      = \033[36m
 
-# Variables
-CC      = cc
-CFLAGS  = -Wall -Wextra -Werror
-SRC     = main.cpp
-OBJ_DIR = obj
-OBJ     = $(patsubst %.cpp,$(OBJ_DIR)/%.o,$(SRC))
-EXEC    = cub3d
+# ================= Project Info =================
+NAME      = cub3d
+CC        = cc
+CFLAGS    = -Wall -Wextra -Werror
 
-# Default rule
-all: $(EXEC)
+# ================= Directories =================
+SRC_DIR   = src
+OBJ_DIR   = obj
+LIBFT_DIR = includes/libft
+GNL_DIR   = includes/getnextline
+INCLUDES  = -Iincludes -I$(LIBFT_DIR) -I$(GNL_DIR)
 
-# Compile the program
-$(EXEC): $(OBJ)
-	@echo "$(CYAN)🔨  Compiling...$(RESET)"
-	@$(CC) $(CFLAGS) -o $(EXEC) $(OBJ)
-	@echo "$(GREEN)✅  Compilation successful!$(RESET)"
+# ================= Source Files =================
+SRC       = $(wildcard $(SRC_DIR)/*.c)
+GNL_SRC   = $(wildcard $(GNL_DIR)/*.c)
+OBJ       = $(SRC:%.c=$(OBJ_DIR)/%.o)
+OBJ      += $(GNL_SRC:%.c=$(OBJ_DIR)/%.o)
 
-# Ensure obj directory exists before creating object files
-$(OBJ_DIR)/%.o: %.cpp | $(OBJ_DIR)
-	@echo "$(YELLOW)📂  Creating object file: $@$(RESET)"
-	@$(CC) $(CFLAGS) -c $< -o $@
+# ================= Libft =================
+LIBFT_A   = $(LIBFT_DIR)/libft.a
 
-# Create obj directory if it doesn't exist
+# ================= Rules =================
+all: $(NAME)
+
+$(NAME): $(LIBFT_A) $(OBJ)
+	@echo "$(CYAN)🔨  Linking $@...$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_A) -lmlx -framework OpenGL -framework AppKit -o $@
+	@echo "$(GREEN)✅  Build complete!$(RESET)"
+
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+	@mkdir -p $(dir $@)
+	@echo "$(YELLOW)📂  Compiling $<...$(RESET)"
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-# Clean up object files
+$(LIBFT_A):
+	@echo "$(CYAN)📦  Building libft...$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR)
+
 clean:
-	@echo "$(RED)🧹  Deleting object files...$(RESET)"
+	@echo "$(RED)🧹  Cleaning object files...$(RESET)"
 	@rm -rf $(OBJ_DIR)
-	@echo "$(GREEN)✅  Cleaned up object files!$(RESET)"
+	@$(MAKE) -C $(LIBFT_DIR) clean
 
-# Clean up all generated files
 fclean: clean
-	@echo "$(RED)🗑️  Deleting executable...$(RESET)"
-	@rm -f $(EXEC)
-	@echo "$(GREEN)✅  Executable deleted!$(RESET)"
+	@echo "$(RED)🗑️  Removing executable...$(RESET)"
+	@rm -f $(NAME)
+	@$(MAKE) -C $(LIBFT_DIR) fclean
 
-# Rebuild everything
 re: fclean all
-	@echo "$(CYAN)🔄  Rebuilding everything...$(RESET)"
 
-# Phony targets
 .PHONY: all clean fclean re
