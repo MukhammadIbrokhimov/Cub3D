@@ -14,7 +14,7 @@ CFLAGS    = -Wall -Wextra -Werror
 SRC_DIR   = src
 OBJ_DIR   = obj
 LIBFT_DIR = includes/libft
-GNL_DIR   = includes/getnextline
+GNL_DIR   = includes/get_nextline
 INCLUDES  = -Iincludes -I$(LIBFT_DIR) -I$(GNL_DIR)
 
 # ================= Source Files =================
