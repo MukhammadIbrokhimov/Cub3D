@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 19:51:49 by mukibrok          #+#    #+#             */
-/*   Updated: 2024/11/12 19:38:31 by mukibrok         ###   ########.fr       */
+/*   Created: 2024/11/14 17:48:35 by gansari           #+#    #+#             */
+/*   Updated: 2025/05/20 20:07:23 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,5 +15,17 @@
 void	ft_putstr_fd(char *s, int fd)
 {
 	while (*s)
-		write(fd, s++, 1);
+	{
+		ft_putchar_fd(*s, fd);
+		s++;
+	}
 }
+/*
+int	main(void)
+{
+	char	*str = "Ghazaleh";
+
+	ft_putstr_fd(str, 1);
+	return (0);
+}
+*/
