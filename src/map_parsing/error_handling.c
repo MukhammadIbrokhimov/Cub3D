@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/14 17:48:35 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/11 00:43:30 by mukibrok         ###   ########.fr       */
+/*   Created: 2025/08/11 00:14:32 by mukibrok          #+#    #+#             */
+/*   Updated: 2025/08/11 00:44:18 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/Cub3D.h"
 
-void	ft_putstr_fd(char *s, int fd)
-{
-	while (*s)
-	{
-		ft_putchar_fd(*s, fd);
-		s++;
-	}
-}
-/*
-int	main(void)
-{
-	char	*str = "Ghazaleh";
+/**
+ * Print error message to stderr and exit
+ * Format: "Error\n" + error description
+ */
 
-	ft_putstr_fd(str, 1);
-	return (0);
+void	print_error(char *message)
+{
+	ft_putstr_fd(RED + "Error\n", 2);
+	ft_putstr_fd(message, 2);
+	ft_putstr_fd("\n", 2);
+	exit(EXIT_FAILURE);
 }
-*/
