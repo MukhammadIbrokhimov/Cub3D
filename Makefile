@@ -18,7 +18,14 @@ GNL_DIR   = includes/get_nextline
 INCLUDES  = -Iincludes -I$(LIBFT_DIR) -I$(GNL_DIR)
 
 # ================= Source Files =================
-SRC       = $(wildcard $(SRC_DIR)/*.c)
+SRC = \
+	src/map_parsing/clean.c \
+	src/map_parsing/parsing.c \
+	src/map_parsing/error_handling.c \
+	src/map_parsing/helper_functions.c \
+	src/map_parsing/validation.c \
+	src/main.c \
+
 GNL_SRC   = $(wildcard $(GNL_DIR)/*.c)
 OBJ       = $(SRC:%.c=$(OBJ_DIR)/%.o)
 OBJ      += $(GNL_SRC:%.c=$(OBJ_DIR)/%.o)
@@ -31,7 +38,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT_A) $(OBJ)
 	@echo "$(CYAN)🔨  Linking $@...$(RESET)"
-	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_A) -lmlx -framework OpenGL -framework AppKit -o $@
+	@$(CC) $(CFLAGS) $(OBJ) $(LIBFT_A) -lmlx -lXext -lX11 -lm -lGL -o $@
 	@echo "$(GREEN)✅  Build complete!$(RESET)"
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)

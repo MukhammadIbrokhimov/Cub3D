@@ -1,31 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   helper_functions.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/14 17:48:35 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/11 00:43:30 by mukibrok         ###   ########.fr       */
+/*   Created: 2025/08/11 00:32:21 by mukibrok          #+#    #+#             */
+/*   Updated: 2025/08/11 00:32:39 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../includes/Cub3D.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int split_len(char **split)
 {
-	while (*s)
-	{
-		ft_putchar_fd(*s, fd);
-		s++;
-	}
+	int count = 0;
+	while (split[count])
+		count++;
+	return (count);
 }
-/*
-int	main(void)
-{
-	char	*str = "Ghazaleh";
-
-	ft_putstr_fd(str, 1);
-	return (0);
-}
-*/

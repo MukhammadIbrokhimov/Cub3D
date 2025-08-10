@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:16:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/10 21:49:46 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/11 00:42:12 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <sys/stat.h>
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
+# include "colors.h"
 
 /* Map characters */
 # define WALL '1'
@@ -73,5 +74,17 @@ typedef struct s_game
 	t_color		ceiling_color;
 	t_player	player;
 }	t_game;
+
+// parsing and initialization map
+void	init_map(t_game *map);
+
+// validation
+bool	validate_file_extension(char *filename);
+
+// error handling
+void	print_error(char *message);
+
+// helper functions
+int		split_len(char **split);
 
 #endif
