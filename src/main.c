@@ -37,12 +37,12 @@ int	main(int argc, char **argv)
 	}
 	init_map(&map);
 	parse_file(&map, argv[1]); // not ready
-	//if (!validate_map(&map)) // not ready
-	//{
-	//	cleanup_game(&map); // not ready
-	//	return(EXIT_FAILURE);
-	//}
-	//cleanup_game(&map); // not ready
+	if (!validate_map(&map)) // not ready
+	{
+		cleanup_game(&map); // not ready
+		return(EXIT_FAILURE);
+	}
+	cleanup_game(&map); // not ready
 	return (EXIT_SUCCESS);
 }
 

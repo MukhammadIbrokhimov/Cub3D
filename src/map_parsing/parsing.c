@@ -23,7 +23,7 @@ void	init_map(t_game *map)
 	map->ceiling_color = (t_color){-1, -1, -1};
 	map->player.x = 0.0;
 	map->player.y = 0.0;
-	map->player.direction = 0.0; // Assuming player direction is a double
+	map->player.direction = 0.0;
 }
 
 t_color parse_color(char *line)
