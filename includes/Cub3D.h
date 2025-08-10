@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:16:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/07/31 16:59:57 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/10 21:49:46 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,50 @@
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
 
+/* Map characters */
+# define WALL '1'
+# define EMPTY '0'
+# define NORTH 'N'
+# define SOUTH 'S'
+# define EAST 'E'
+# define WEST 'W'
+# define SPACE ' '
 
-typedef struct s_config {
-	char	*no_tex;
-	char	*so_tex;
-	char	*we_tex;
-	char	*ea_tex;
-	int		floor_color;
-	int		ceiling_color;
-	char	**map;
-	int		map_lines;
-}	t_config;
+/* Color structure */
+typedef struct s_color {
+	int	red;
+	int	green;
+	int	blue;
+} t_color;
+
+/* Texture identifiers */
+typedef enum e_texture_type
+{
+	NORTH_TEX,
+	SOUTH_TEX,
+	WEST_TEX,
+	EAST_TEX,
+	TEX_COUNT
+}	t_texture_type;
+
+/* Player structure */
+typedef struct s_player
+{
+	double	x;
+	double	y;
+	char	direction;
+} t_player;
+
+/* Game data structure */
+typedef struct s_game
+{
+	char		**map;
+	int			map_width;
+	int			map_height;
+	char		*textures[TEX_COUNT];
+	t_color		floor_color;
+	t_color		ceiling_color;
+	t_player	player;
+}	t_game;
 
 #endif
