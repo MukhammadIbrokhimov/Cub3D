@@ -24,6 +24,7 @@ SRC = \
 	src/map_parsing/error_handling.c \
 	src/map_parsing/helper_functions.c \
 	src/map_parsing/validation.c \
+	src/map_parsing/validation1.c \
 	src/main.c \
 
 GNL_SRC   = $(wildcard $(GNL_DIR)/*.c)

@@ -6,11 +6,16 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 22:46:12 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/12 23:23:14 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/13 00:18:25 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/Cub3D.h"
+
+/**
+ * Free the allocated memory for the map and textures
+ * @param map Pointer to the game structure containing the map and textures
+ */
 
 void	cleanup_map(t_game *map)
 {

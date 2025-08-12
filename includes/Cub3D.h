@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:16:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/12 23:43:43 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/13 01:48:30 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,19 @@ typedef struct s_game
 }	t_game;
 
 // parsing and initialization map
-void	init_map(t_game *map);
 int		parse_file(t_game *map, char *filename);
 int		parse_map_line(char *line, t_game *map, int fd);
+int		parse_texture(char *line, t_game *map);
+int		parse_width(t_game *map);
+t_color	parse_color(char *line);
 
 // validation
+bool	validate_texture(t_game *map);
+bool	validate_color(t_game *map);
+bool	validate_map(t_game *map);
 bool	validate_file_extension(char *filename);
+bool	validate_player(t_game *map);
+bool	validate_char(t_game *map);
 
 // error handling
 void	print_error(char *message);
@@ -92,6 +99,7 @@ int		split_len(char **split);
 int		free_double_ptr(char **ptr);
 void	print_map(t_game *map);
 int		space_count(char *line);
+void	init_map(t_game *map);
 
 // cleanup functions
 void	cleanup_map(t_game *map);
