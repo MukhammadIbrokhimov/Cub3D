@@ -8,7 +8,7 @@ CYAN      = \033[36m
 # ================= Project Info =================
 NAME      = cub3d
 CC        = cc
-CFLAGS    = -Wall -Wextra -Werror
+CFLAGS    = -Wall -Wextra -Werror -g
 
 # ================= Directories =================
 SRC_DIR   = src

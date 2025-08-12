@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:16:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/12 17:57:02 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/12 23:43:43 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ void	print_error(char *message);
 
 // helper functions
 int		split_len(char **split);
+int		free_double_ptr(char **ptr);
 void	print_map(t_game *map);
+int		space_count(char *line);
+
+// cleanup functions
+void	cleanup_map(t_game *map);
 
 #endif
