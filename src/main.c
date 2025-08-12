@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 16:41:43 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/12 18:30:23 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/12 23:24:16 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Usage: ./cub3d <map_file>\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	if (validate_file_extension(argv[1]) == false)
+	if (validate_file_extension(argv[1]) == false) // completed
 	{
 		ft_putstr_fd("Error: Invalid map file.\n", STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	printf("Starting Cub3D with map: %s\n", argv[1]);
-	init_map(&map);
-	printf("Initialized game structure.\n");
+	init_map(&map); // completed
 	parse_file(&map, argv[1]);
 	print_map(&map); // For debugging, remove in production
 	//if (!validate_map(&map)) // not ready
@@ -45,7 +43,7 @@ int	main(int argc, char **argv)
 	//	cleanup_game(&map); // not ready
 	//	return(EXIT_FAILURE);
 	//}
-	//cleanup_game(&map); // not ready
+	cleanup_map(&map);
 	return (EXIT_SUCCESS);
 }
 
