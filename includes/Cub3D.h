@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:16:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/11 00:42:12 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/12 17:57:02 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define EAST 'E'
 # define WEST 'W'
 # define SPACE ' '
+# define MAX_MAP_LINES 1000
 
 /* Color structure */
 typedef struct s_color {
@@ -77,6 +78,8 @@ typedef struct s_game
 
 // parsing and initialization map
 void	init_map(t_game *map);
+int		parse_file(t_game *map, char *filename);
+int		parse_map_line(char *line, t_game *map, int fd);
 
 // validation
 bool	validate_file_extension(char *filename);
@@ -86,5 +89,6 @@ void	print_error(char *message);
 
 // helper functions
 int		split_len(char **split);
+void	print_map(t_game *map);
 
 #endif
