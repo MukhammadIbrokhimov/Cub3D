@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 16:41:43 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/13 01:54:19 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 10:23:55 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	main(int argc, char **argv)
 	}
 	if (validate_file_extension(argv[1]) == false) // completed
 	{
-		ft_putstr_fd("Error: Invalid map file.\n", STDERR_FILENO);
+		print_error(ERR_FILE_EXT);
 		return (EXIT_FAILURE);
 	}
 	init_map(&map); // completed
 	parse_file(&map, argv[1]);
 	if (!validate_map(&map)) // not ready
 	{
-		cleanup_map(&map); // not ready
+		cleanup_map(&map);
 		return(EXIT_FAILURE);
 	}
 	print_map(&map); // For debugging, remove in production

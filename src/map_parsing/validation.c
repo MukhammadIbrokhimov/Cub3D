@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 00:22:05 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/13 01:53:36 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 09:46:18 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	validate_texture(t_game *map)
 {
 	if (!map->textures[NORTH_TEX] || !map->textures[SOUTH_TEX] ||
 		!map->textures[WEST_TEX] || !map->textures[EAST_TEX])
-		return (print_error("Missing texture"), false);
+		return (print_error(ERR_MISSING_TEXTURE), false);
 	return (true);
 }
 
@@ -63,7 +63,7 @@ bool	validate_color(t_game *map)
 		fcolor.green < 0 || ccolor.green > 255 ||
 		ccolor.blue < 0 || ccolor.blue > 255)
 	{
-		print_error("Invalid color values");
+		print_error(ERR_INVALID_COLOR);
 		return (false);
 	}
 	return (true);
@@ -83,7 +83,7 @@ bool	validate_char(t_game *map)
 
 	i = -1;
 	if (!map || !map->map)
-		return (print_error("Map is not initialized"), false);
+		return (print_error(ERR_INVALID), false);
 	if (map->map_height <= 0 || map->map_width <= 0)
 		return (print_error("Invalid map dimensions"), false);
 	while (++i < map->map_height && map->map[i])
@@ -94,8 +94,8 @@ bool	validate_char(t_game *map)
 			if (map->map[i][j] != WALL && map->map[i][j] != EMPTY &&
 				map->map[i][j] != SPACE && map->map[i][j] != NORTH &&
 				map->map[i][j] != SOUTH && map->map[i][j] != EAST &&
-				map->map[i][j] != WEST)
-				return (print_error("Invalid character in map"), false);
+				map->map[i][j] != WEST && map->map[i][j] != '\n')
+				return (print_error(ERR_INVALID_CHAR), false);
 		}
 	}
 	return (true);
@@ -112,7 +112,8 @@ bool	validate_map(t_game *map)
 	if ((validate_texture(map) == false) 
 		|| (validate_color(map) == false)
 		|| (validate_char(map) == false)
-		|| (validate_player(map) == false))
+		|| (validate_player(map) == false)
+		|| (validate_map_walls(map) == false))
 		return (false);
 	return (true);
 }
