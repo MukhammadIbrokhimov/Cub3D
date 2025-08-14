@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:54:13 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/12 17:09:24 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,10 @@ typedef struct s_game
 	t_ray			ray;			/* Raycasting calculations */
 	t_wall			wall;			/* Wall rendering data */
 	t_textures		textures;		/* Texture management */
-}	t_game;
+}	t_map;
 
 /* Legacy typedef for backward compatibility */
-typedef t_game t_game_map;
+typedef t_map t_map_map;
 
 /* ************************************************************************** */
 /*                           STRUCTURE DOCUMENTATION                         */

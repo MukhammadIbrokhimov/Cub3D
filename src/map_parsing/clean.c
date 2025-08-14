@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 22:46:12 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/13 00:18:25 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * @param map Pointer to the game structure containing the map and textures
  */
 
-void	cleanup_map(t_game *map)
+void	cleanup_map(t_map *map)
 {
 	if (!map)
 		return ;

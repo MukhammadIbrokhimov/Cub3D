@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 16:41:43 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 10:23:55 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 int	main(int argc, char **argv)
 {
-	t_game	map;
+	t_map	map;
 
 	if (argc != 2)
 	{

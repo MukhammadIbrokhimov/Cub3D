@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 23:59:49 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 09:54:49 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * This function iterates through each line of the map and calculates the maximum width.
 */
 
-int	parse_width(t_game *map)
+int	parse_width(t_map *map)
 {
 	int	width_len;
 	int	i;
@@ -63,7 +63,7 @@ t_color	parse_color(char *line)
  * @return EXIT_SUCCESS if successful, EXIT_FAILURE if an error occurs
  */
 
-int	parse_texture(char *line, t_game *map)
+int	parse_texture(char *line, t_map *map)
 {
 	if (ft_strncmp(line, "NO ", 3) == 0)
 		map->textures[NORTH_TEX] = ft_strdup(line + space_count(line));
@@ -85,7 +85,7 @@ int	parse_texture(char *line, t_game *map)
  * @return EXIT_SUCCESS if successful, EXIT_FAILURE if an error occurs
  */
 
-int	parse_file(t_game *map, char *filename)
+int	parse_file(t_map *map, char *filename)
 {
 	int		fd;
 	char	*line;
@@ -121,7 +121,7 @@ int	parse_file(t_game *map, char *filename)
  * @return EXIT_SUCCESS if successful, EXIT_FAILURE if an error occurs
  */
 
-int	parse_map_line(char *line, t_game *map, int fd)
+int	parse_map_line(char *line, t_map *map, int fd)
 {
 	char	**map_lines;
 	int		map_line_count;

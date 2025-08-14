@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 00:22:05 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 09:46:18 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ bool	validate_file_extension(char *filename)
  * @return true if all textures are valid, false otherwise
  */
 
-bool	validate_texture(t_game *map)
+bool	validate_texture(t_map *map)
 {
 	if (!map->textures[NORTH_TEX] || !map->textures[SOUTH_TEX] ||
 		!map->textures[WEST_TEX] || !map->textures[EAST_TEX])
@@ -52,7 +52,7 @@ bool	validate_texture(t_game *map)
  * @return true if the color values are valid (0-255), false otherwise
  */
 
-bool	validate_color(t_game *map)
+bool	validate_color(t_map *map)
 {
 	t_color	fcolor;
 	t_color	ccolor;
@@ -76,7 +76,7 @@ bool	validate_color(t_game *map)
  * @return true if all characters are valid, false otherwise
  */
 
-bool	validate_char(t_game *map)
+bool	validate_char(t_map *map)
 {
 	int	i;
 	int	j;
@@ -107,7 +107,7 @@ bool	validate_char(t_game *map)
  * @return true if the map is valid, false otherwise
  */
 
-bool	validate_map(t_game *map)
+bool	validate_map(t_map *map)
 {
 	if ((validate_texture(map) == false) 
 		|| (validate_color(map) == false)

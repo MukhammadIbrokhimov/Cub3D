@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 00:32:21 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 10:18:50 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * @param map Pointer to the game structure to be initialized
  */
 
-void	init_map(t_game *map)
+void	init_map(t_map *map)
 {
 	int	i;
 
@@ -29,9 +29,9 @@ void	init_map(t_game *map)
 		map->textures[i] = NULL;
 	map->floor_color = (t_color){-1, -1, -1};
 	map->ceiling_color = (t_color){-1, -1, -1};
-	map->player.x = 0.0;
-	map->player.y = 0.0;
-	map->player.direction = 0.0; // Assuming player direction is a double
+	map->player.pos_x = 0.0;
+	map->player.pos_y = 0.0;
+	map->player.initial_dir = 0.0; // Assuming player direction is a double
 }
 
 /**
@@ -97,7 +97,7 @@ int	free_double_ptr(char **ptr)
  * @param map Pointer to the game structure containing the map and properties
  */
 
-void	print_map(t_game *map)
+void	print_map(t_map *map)
 {
 	if (!map || !map->map)
 	{

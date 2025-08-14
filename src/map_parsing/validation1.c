@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 01:39:51 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 10:23:27 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @return true if the player is valid, false otherwise
  */
 
-bool	validate_player(t_game *map)
+bool	validate_player(t_map *map)
 {
 	int	i;
 	int	j;
@@ -38,9 +38,9 @@ bool	validate_player(t_game *map)
 				player_count++;
 				if (player_count > 1)
 					return (print_error(ERR_MULTI_PLAYER), false);
-				map->player.x = j + 0.5;
-				map->player.y = i + 0.5;
-				map->player.direction = map->map[i][j];
+				map->player.pos_x = j + 0.5;
+				map->player.pos_y = i + 0.5;
+				map->player.initial_dir = map->map[i][j];
 			}
 			j++;
 		}
@@ -57,7 +57,7 @@ bool	validate_player(t_game *map)
  * @return true if the map is valid, false otherwise
  */
 
-bool	validate_map_walls(t_game *game)
+bool	validate_map_walls(t_map *game)
 {
 	char	**temp_map;
 	bool		result;
@@ -65,7 +65,7 @@ bool	validate_map_walls(t_game *game)
 	temp_map = create_temp_map(game);
 	if (!temp_map)
 		return (false);
-	result = flood_fill(temp_map, (int)game->player.y, (int)game->player.x, game);
+	result = flood_fill(temp_map, (int)game->player.pos_y, (int)game->player.pos_x, game);
 	free_double_ptr(temp_map);
 	if (!result)
 		return (print_error(ERR_MAP_NOT_CLOSED), false);
@@ -77,7 +77,7 @@ bool	validate_map_walls(t_game *game)
  * Normalize all lines to the same width (pad with spaces)
  */
 
-char	**create_temp_map(t_game *game)
+char	**create_temp_map(t_map *game)
 {
 	char	**temp_map;
 	int		i = 0;
@@ -117,7 +117,7 @@ char	**create_temp_map(t_game *game)
  * Returns 0 if any empty space reaches the border
  */
 
-int	flood_fill(char **map, int y, int x, t_game *game)
+int	flood_fill(char **map, int y, int x, t_map *game)
 {
 	/* Check bounds */
 	if (y < 0 || y >= game->map_height || x < 0 || x >= game->map_width)
