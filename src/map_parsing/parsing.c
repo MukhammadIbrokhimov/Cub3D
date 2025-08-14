@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 23:59:49 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/13 01:41:07 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 09:54:49 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ int	parse_file(t_game *map, char *filename)
 	map_started = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-		return (print_error("Error opening file"), EXIT_FAILURE);
+		return (print_error(ERR_FILE_OPEN), EXIT_FAILURE);
 	while ((line = get_next_line(fd)))
 	{
 		if (!map_started && (line[0] == '0' || line[0] == '1' || line[0] == ' '))
 		{
 			map_started = 1;
 			if (parse_map_line(line, map, fd) == EXIT_FAILURE)
-				return (print_error("Invalid map"), free(line), EXIT_FAILURE);
+				return (print_error(ERR_INVALID), free(line), EXIT_FAILURE);
 		}
 		parse_texture(line, map);
 		if (line[0] == 'F')
@@ -132,7 +132,8 @@ int	parse_map_line(char *line, t_game *map, int fd)
 	if (!map_lines)
 		return (EXIT_FAILURE);
 	map_lines[map_line_count++] = ft_strdup(line);
-	while ((line = get_next_line(fd)))
+	while ((line = get_next_line(fd)) 
+		&& (line[0] == '1' || line[0] == '0' || line[0] == ' '))
 	{
 		if (ft_strlen(line) == 0 || line[0] == '\n')
 		{

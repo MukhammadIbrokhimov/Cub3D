@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 00:32:21 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/13 01:56:27 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 10:18:50 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,4 @@ void	print_map(t_game *map)
 		if (map->map[i])
 			printf("%s", map->map[i]);
 	}
-	printf("\n");
 }
