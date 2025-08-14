@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:16:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 10:10:46 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 12:08:06 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include <sys/stat.h>
 # include "./libft/libft.h"
 # include "./minilibx-linux/mlx.h"
-# include "colors.h"
 
 /* Map characters */
 # define WALL '1'
