@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:49:00 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 15:49:00 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:50:22 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,15 @@ static void	load_texture_image(t_game *game, t_image *texture)
 {
 	if (!texture->path)
 		return;
-		
+	printf("\nLoading texture: %s\n", texture->path);
+	printf("Texture BPP: %d, Line Length: %d, Endian: %d\n",
+		texture->bits_per_pixel, texture->line_length, texture->endian);
 	texture->mlx_ptr = mlx_xpm_file_to_image(game->mlx.instance, 
 		texture->path, &texture->width, &texture->height);
 	if (!texture->mlx_ptr)
-		handle_game_error(game, "Error\nFailed to load texture file\n");
-		
+		handle_game_error(game, "Error\n\n");
+	printf("mlx_ptr: %p, Width: %d, Height: %d\n",
+		texture->mlx_ptr, texture->width, texture->height);
 	texture->data = mlx_get_data_addr(texture->mlx_ptr,
 		&texture->bits_per_pixel, &texture->line_length, &texture->endian);
 	if (!texture->data)

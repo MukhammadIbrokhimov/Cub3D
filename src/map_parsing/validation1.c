@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 01:39:51 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:54:11 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,20 +27,20 @@ bool	validate_player(t_map *map)
 
 	i = -1;
 	player_count = 0;
-	while (++i < map->map_height && map->map[i])
+	while (++i < map->height && map->grid[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (map->grid[i][j])
 		{
-			if (map->map[i][j] == NORTH || map->map[i][j] == SOUTH ||
-				map->map[i][j] == EAST || map->map[i][j] == WEST)
+			if (map->grid[i][j] == NORTH || map->grid[i][j] == SOUTH ||
+				map->grid[i][j] == EAST || map->grid[i][j] == WEST)
 			{
 				player_count++;
 				if (player_count > 1)
 					return (print_error(ERR_MULTI_PLAYER), false);
 				map->player.pos_x = j + 0.5;
 				map->player.pos_y = i + 0.5;
-				map->player.initial_dir = map->map[i][j];
+				map->player.initial_dir = map->grid[i][j];
 			}
 			j++;
 		}
@@ -83,12 +83,12 @@ char	**create_temp_map(t_map *game)
 	int		i = 0;
 	int		j;
 
-	temp_map = malloc(sizeof(char*) * (game->map_height + 1));
+	temp_map = malloc(sizeof(char*) * (game->height + 1));
 	if (!temp_map)
 		return (NULL);
-	while (i < game->map_height)
+	while (i < game->height)
 	{
-		temp_map[i] = malloc(sizeof(char) * (game->map_width + 1));
+		temp_map[i] = malloc(sizeof(char) * (game->width + 1));
 		if (!temp_map[i])
 		{
 			while (--i >= 0)
@@ -97,18 +97,18 @@ char	**create_temp_map(t_map *game)
 			return (NULL);
 		}
 		j = 0;
-		while (j < game->map_width)
+		while (j < game->width)
 		{
-			if (j < (int)ft_strlen(game->map[i]) && game->map[i][j] != '\n')
-				temp_map[i][j] = game->map[i][j];
+			if (j < (int)ft_strlen(game->grid[i]) && game->grid[i][j] != '\n')
+				temp_map[i][j] = game->grid[i][j];
 			else
 				temp_map[i][j] = SPACE;
 			j++;
 		}
-		temp_map[i][game->map_width] = '\0';
+		temp_map[i][game->width] = '\0';
 		i++;
 	}
-	temp_map[game->map_height] = NULL;
+	temp_map[game->height] = NULL;
 	return (temp_map);
 }
 
@@ -120,7 +120,7 @@ char	**create_temp_map(t_map *game)
 int	flood_fill(char **map, int y, int x, t_map *game)
 {
 	/* Check bounds */
-	if (y < 0 || y >= game->map_height || x < 0 || x >= game->map_width)
+	if (y < 0 || y >= game->height || x < 0 || x >= game->width)
 		return (0); /* Reached border - map not closed */
 
 	/* If we hit a wall or already visited, stop */
@@ -128,8 +128,8 @@ int	flood_fill(char **map, int y, int x, t_map *game)
 		return (1);
 
 	/* If we hit a space at the border, map is not closed */
-	if (map[y][x] == SPACE && (y == 0 || y == game->map_height - 1 || 
-		x == 0 || x == game->map_width - 1))
+	if (map[y][x] == SPACE && (y == 0 || y == game->height - 1 || 
+		x == 0 || x == game->width - 1))
 		return (0);
 
 	/* Mark as visited */

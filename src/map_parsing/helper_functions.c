@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 00:32:21 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:54:11 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	init_map(t_map *map)
 	int	i;
 
 	i = -1;
-	map->map = NULL;
-	map->map_width = 0;
-	map->map_height = 0;
+	map->grid = NULL;
+	map->width = 0;
+	map->height = 0;
 	while (++i < TEX_COUNT)
 		map->textures[i] = NULL;
 	map->floor_color = (t_color){-1, -1, -1};
@@ -99,7 +99,7 @@ int	free_double_ptr(char **ptr)
 
 void	print_map(t_map *map)
 {
-	if (!map || !map->map)
+	if (!map || !map->grid)
 	{
 		printf("Map is not initialized.\n");
 		return;
@@ -112,11 +112,11 @@ void	print_map(t_map *map)
 		map->floor_color.red, map->floor_color.green, map->floor_color.blue);
 	printf("Ceiling Color: R=%d, G=%d, B=%d\n",
 		map->ceiling_color.red, map->ceiling_color.green, map->ceiling_color.blue);
-	printf("Map dimensions: %d x %d\n", map->map_width, map->map_height);
+	printf("Map dimensions: %d x %d\n", map->width, map->height);
 	printf("Map contents:\n");
-	for (int i = 0; i < map->map_height; i++)
+	for (int i = 0; i < map->height; i++)
 	{
-		if (map->map[i])
-			printf("%s", map->map[i]);
+		if (map->grid[i])
+			printf("%s", map->grid[i]);
 	}
 }

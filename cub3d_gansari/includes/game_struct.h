@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   game_struct.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:54:13 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/12 17:09:24 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/14 16:57:46 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GAME_STRUCT_H
 # define GAME_STRUCT_H
+
+/*
+ * enum for texture types
+*/
+
+//typedef enum e_texture_type
+//{
+//	NORTH_TEX,
+//	SOUTH_TEX,
+//	WEST_TEX,
+//	EAST_TEX,
+//	TEX_COUNT
+//}	t_texture_type;
 
 /**
  * @brief Image structure for MLX image handling
@@ -42,19 +55,15 @@ typedef struct s_mlx
 	int			height;				/* Window height in pixels */
 }	t_mlx;
 
-/**
- * @brief Map configuration and data
- */
-typedef struct s_map
-{
-	char		**grid;				/* 2D array representing the game map */
-	int			width;				/* Width of the map in grid units */
-	int			height;				/* Height of the map in grid units */
-	int			floor_rgb[3];		/* Floor color RGB values [R,G,B] */
-	int			ceiling_rgb[3];		/* Ceiling color RGB values [R,G,B] */
-	char		*current_line;		/* Current line being parsed */
-	char		*data_buffer;		/* Buffer for accumulating map data */
-}	t_map;
+/*
+ * colors for wall textures
+*/
+
+typedef struct s_color {
+	int	red;
+	int	green;
+	int	blue;
+} t_color;
 
 /**
  * @brief Player position, direction and movement
@@ -71,6 +80,20 @@ typedef struct s_player
 	double		move_speed;			/* Player movement speed */
 	double		rotate_speed;		/* Player rotation speed */
 }	t_player;
+
+/**
+ * @brief Map configuration and data
+ */
+
+typedef struct s_map
+{
+	char		**grid;
+	int			width;
+	int			height;
+	t_color		floor_color;
+	t_color		ceiling_color;
+}	t_map;
+
 
 /**
  * @brief Raycasting calculation data

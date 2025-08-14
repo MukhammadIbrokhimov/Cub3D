@@ -3,14 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 17:03:01 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 17:04:20 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:33:42 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	free_string_array(char **string_array)
+{
+	int	string_index;
+
+	if (!string_array)
+		return ;
+	string_index = 0;
+	while (string_array[string_index])
+	{
+		free(string_array[string_index]);
+		string_array[string_index] = NULL;
+		string_index++;
+	}
+	free(string_array);
+}
 
 void	free_texture_paths(t_game *game)
 {
@@ -36,32 +52,16 @@ void	free_texture_paths(t_game *game)
 	}
 }
 
-void	free_string_array(char **string_array)
-{
-	int	string_index;
-
-	if (!string_array)
-		return ;
-	string_index = 0;
-	while (string_array[string_index])
-	{
-		free(string_array[string_index]);
-		string_array[string_index] = NULL;
-		string_index++;
-	}
-	free(string_array);
-}
-
-void	free_parsing_buffers(t_game *game)
-{
-	if (game->map.current_line)
-	{
-		free(game->map.current_line);
-		game->map.current_line = NULL;
-	}
-	if (game->map.data_buffer)
-	{
-		free(game->map.data_buffer);
-		game->map.data_buffer = NULL;
-	}
-}
+//void	free_parsing_buffers(t_game *game)
+//{
+//	if (game->map.current_line)
+//	{
+//		free(game->map.current_line);
+//		game->map.current_line = NULL;
+//	}
+//	if (game->map.data_buffer)
+//	{
+//		free(game->map.data_buffer);
+//		game->map.data_buffer = NULL;
+//	}
+//}

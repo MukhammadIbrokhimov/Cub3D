@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 00:22:05 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:54:11 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,19 +82,19 @@ bool	validate_char(t_map *map)
 	int	j;
 
 	i = -1;
-	if (!map || !map->map)
+	if (!map || !map->grid)
 		return (print_error(ERR_INVALID), false);
-	if (map->map_height <= 0 || map->map_width <= 0)
+	if (map->height <= 0 || map->width <= 0)
 		return (print_error("Invalid map dimensions"), false);
-	while (++i < map->map_height && map->map[i])
+	while (++i < map->height && map->grid[i])
 	{
 		j = -1;
-		while (++j < (int)ft_strlen(map->map[i]))
+		while (++j < (int)ft_strlen(map->grid[i]))
 		{
-			if (map->map[i][j] != WALL && map->map[i][j] != EMPTY &&
-				map->map[i][j] != SPACE && map->map[i][j] != NORTH &&
-				map->map[i][j] != SOUTH && map->map[i][j] != EAST &&
-				map->map[i][j] != WEST && map->map[i][j] != '\n')
+			if (map->grid[i][j] != WALL && map->grid[i][j] != EMPTY &&
+				map->grid[i][j] != SPACE && map->grid[i][j] != NORTH &&
+				map->grid[i][j] != SOUTH && map->grid[i][j] != EAST &&
+				map->grid[i][j] != WEST && map->grid[i][j] != '\n')
 				return (print_error(ERR_INVALID_CHAR), false);
 		}
 	}

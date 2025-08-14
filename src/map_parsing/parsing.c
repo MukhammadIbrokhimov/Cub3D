@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/10 23:59:49 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:54:11 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ int	parse_width(t_map *map)
 	int	width_len;
 	int	i;
 
-	if (!map || !map->map || map->map_height == 0)
+	if (!map || !map->grid || map->height == 0)
 		return (print_error("Map is not initialized"), EXIT_FAILURE);
 	i = 0;
-	while (i < map->map_height && map->map[i])
+	while (i < map->height && map->grid[i])
 	{
-		width_len = ft_strlen(map->map[i]);
-		if (width_len > map->map_width)
-			map->map_width = width_len;
+		width_len = ft_strlen(map->grid[i]);
+		if (width_len > map->width)
+			map->width = width_len;
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -144,9 +144,9 @@ int	parse_map_line(char *line, t_map *map, int fd)
 		free(line);
 	}
 	map_lines[map_line_count] = NULL;
-	map->map = map_lines;
-	map->map_height = map_line_count;
+	map->grid = map_lines;
+	map->height = map_line_count;
 	if (parse_width(map) == EXIT_FAILURE)
-		return (free_double_ptr(map->map), EXIT_FAILURE);
+		return (free_double_ptr(map->grid), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

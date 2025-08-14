@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   drawing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:15:48 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 16:37:40 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/14 13:44:51 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ void	render_background_colors(t_game *game)
 	int	ceiling_color;
 	int	floor_color;
 
-	ceiling_color = create_trgb_color(0, game->map.ceiling_rgb[0],
-		game->map.ceiling_rgb[1], game->map.ceiling_rgb[2]);
-	floor_color = create_trgb_color(0, game->map.floor_rgb[0],
-		game->map.floor_rgb[1], game->map.floor_rgb[2]);
+	ceiling_color = create_trgb_color(0, game->map.ceiling_color.red,
+		game->map.ceiling_color.green , game->map.ceiling_color.blue);
+	floor_color = create_trgb_color(0, game->map.floor_color.red,
+		game->map.floor_color.green, game->map.floor_color.blue);
 		
 	screen_x = 0;
 	while (screen_x < game->mlx.width)

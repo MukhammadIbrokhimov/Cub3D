@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/31 10:16:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 12:24:57 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:59:36 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,14 @@ typedef struct s_player
 	double		move_speed;			/* Player movement speed */
 	double		rotate_speed;		/* Player rotation speed */
 }	t_player;
-
+# include <sys/types.h>
+# include <sys/stat.h>
 /* Game data structure */
 typedef struct s_map
 {
-	char		**map;
-	int			map_width;
-	int			map_height;
+	char		**grid;
+	int			width;
+	int			height;
 	char		*textures[TEX_COUNT];
 	t_color		floor_color;
 	t_color		ceiling_color;

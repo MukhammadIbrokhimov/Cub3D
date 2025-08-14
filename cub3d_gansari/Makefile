@@ -21,15 +21,15 @@ RM				= rm -rf
 MAIN_FILES		= main.c \
 				  memory_management.c \
 				  initialize_game_struct.c \
-				  validations.c \
 				  destroy_mlx_memory.c \
 				  free_memory.c \
 
-PARSING_FILES	= parsing/parse_main.c \
-				  parsing/parse_utils.c \
-				  parsing/parse_rgb_texture.c \
-				  parsing/map_statistics.c \
-				  parsing/wall_validation.c
+PARSING_FILES	= map_parsing/clean.c \
+				  map_parsing/error_handling.c \
+				  map_parsing/helper_functions.c \
+				  map_parsing/parsing.c \
+				  map_parsing/validation.c \
+				  map_parsing/validation1.c \
 
 GAME_FILES		= game/game_init.c \
 				  game/input_handling.c \

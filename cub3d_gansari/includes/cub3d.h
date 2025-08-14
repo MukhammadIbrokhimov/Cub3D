@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 17:04:35 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/14 19:26:25 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,37 @@
 # include <mlx.h>
 # include <math.h>
 # include <limits.h>
+# include <stdbool.h>
+# include <stdint.h>
+# include <errno.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # include "keys.h"
 # include "game_struct.h"
 # include "../Libft/libft.h"
+# include "./minilibx-linux/mlx.h"
+
+/* Map characters */
+# define WALL '1'
+# define EMPTY '0'
+# define NORTH 'N'
+# define SOUTH 'S'
+# define EAST 'E'
+# define WEST 'W'
+# define SPACE ' '
+# define MAX_MAP_LINES 1000
+
+/* Error messages */
+# define ERR_FILE_EXT "File must have .cub extension"
+# define ERR_FILE_OPEN "Cannot open file"
+# define ERR_MALLOC "Memory allocation failed"
+# define ERR_INVALID "Invalid map"
+# define ERR_NO_PLAYER "No player found in map"
+# define ERR_MULTI_PLAYER "Multiple players found"
+# define ERR_MAP_NOT_CLOSED "Map is not surrounded by walls"
+# define ERR_INVALID_CHAR "Invalid character in map"
+# define ERR_MISSING_TEXTURE "Missing texture path"
+# define ERR_INVALID_COLOR "Invalid color format"
 
 /* ************************************************************************** */
 /*                               CONSTANTS                                    */
@@ -56,16 +84,7 @@
 /*                               ENUMERATIONS                                 */
 /* ************************************************************************** */
 
-/**
- * @brief Cardinal directions for wall textures
- */
-enum e_direction
-{
-	NORTH = 0,	/* North-facing wall */
-	SOUTH = 1,	/* South-facing wall */
-	EAST = 2,	/* East-facing wall */
-	WEST = 3	/* West-facing wall */
-};
+
 
 /* ************************************************************************** */
 /*                           FUNCTION PROTOTYPES                             */
@@ -78,14 +97,6 @@ enum e_direction
 void	init_game_structure(t_game *game);
 
 /* ========================================================================== */
-/*                            VALIDATION FUNCTIONS                           */
-/* ========================================================================== */
-int		is_valid_file_descriptor(int fd);
-int		validate_arguments(int argc, char **argv);
-int		is_parseable_map_file(t_game *game, int fd);
-int		validate_input_file(char *filename);
-
-/* ========================================================================== */
 /*                            MEMORY MANAGEMENT                              */
 /* ========================================================================== */
 
@@ -93,36 +104,41 @@ void	destroy_mlx_images(t_game *game);
 void	cleanup_mlx_resources(t_game *game);
 void	free_texture_paths(t_game *game);
 void	free_string_array(char **array);
-void	free_parsing_buffers(t_game *game);
 int		clean_exit_program(t_game *game);
+void	cleanup_map(t_map *map);
 
 /* ========================================================================== */
 /*                            PARSING FUNCTIONS                              */
 /* ========================================================================== */
 
-void	handle_parsing_error(t_game *game, char *error_message);
-void	read_and_parse_map_file(int file_descriptor, t_game *game);
-int		parse_map_file(t_game *game, int file_descriptor);
+int		parse_file(t_game *map, char *filename);
+int		parse_map_line(char *line, t_map *map, int fd);
+int		parse_texture(char *line, t_game *map);
+int		parse_width(t_map *map);
+t_color	parse_color(char *line);
 
 /* ========================================================================== */
 /*                            PARSING UTILITIES                              */
 /* ========================================================================== */
-
-int		is_character_valid(char character, char *valid_chars);
-int		get_string_length_no_newline(char *string);
-char	*resize_string_to_size(char *original_string, int target_size);
-char	*join_strings_with_separator(char *string1, char *string2);
+int		split_len(char **split);
+int		free_double_ptr(char **ptr);
+int		space_count(char *line);
+int		flood_fill(char **map, int y, int x, t_map *game);
+void	print_map(t_map *map);
+void	print_error(char *message);
+char	**create_temp_map(t_map *game);
 
 /* ========================================================================== */
-/*                          WALL VALIDATION                                  */
+/*                           VALIDATION                                  */
 /* ========================================================================== */
 
-int		validate_map_column(char **map_array, int row, int col, int total_rows);
-int		validate_vertical_walls(t_game *game, int start_row, int start_col);
-int		validate_map_line(t_game *game, char *line_to_check, int start_col);
-int		validate_horizontal_walls(t_game *game, int start_row, int start_col);
-int		validate_map_walls(t_game *game);
-
+bool	validate_texture(t_game *map);
+bool	validate_color(t_map *map);
+bool	validate_map(t_game *map);
+bool	validate_file_extension(char *filename);
+bool	validate_player(t_game *game);
+bool	validate_char(t_map *map);
+bool	validate_map_walls(t_game *game);
 /* ========================================================================== */
 /*                          MAP STATISTICS                                   */
 /* ========================================================================== */

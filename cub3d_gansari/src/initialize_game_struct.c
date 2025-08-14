@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialize_game_struct.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:04:12 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 15:08:28 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/14 17:46:53 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,8 @@ static void	init_map(t_game *game)
 	game->map.grid = NULL;
 	game->map.width = 0;
 	game->map.height = 0;
-	game->map.floor_rgb[0] = -1;
-	game->map.floor_rgb[1] = -1;
-	game->map.floor_rgb[2] = -1;
-	game->map.ceiling_rgb[0] = -1;
-	game->map.ceiling_rgb[1] = -1;
-	game->map.ceiling_rgb[2] = -1;
-	game->map.current_line = NULL;
-	game->map.data_buffer = NULL;
+	game->map.ceiling_color = (t_color){-1, -1, -1};
+	game->map.floor_color = (t_color){-1, -1, -1};
 }
 
 static void	init_player(t_game *game)

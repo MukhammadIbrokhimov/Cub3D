@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/12 22:46:12 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/14 12:24:44 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/14 13:04:59 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	cleanup_map(t_map *map)
 {
 	if (!map)
 		return ;
-	if (map->map)
-		free_double_ptr(map->map);
+	if (map->grid)
+		free_double_ptr(map->grid);
 	int i = -1;
 	while (++i < TEX_COUNT)
 	{
