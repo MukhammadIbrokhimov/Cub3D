@@ -1,181 +1,152 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_rgb_texture.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/19 19:51:23 by mukibrok          #+#    #+#             */
+/*   Updated: 2025/08/19 19:52:54 by mukibrok         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 
-/* ************************************************************************** */
-/*                           TEXTURE PATH PARSING                            */
-/* ************************************************************************** */
-
-/**
- * @brief Extract and validate texture file path from configuration line
- */
-void	extract_texture_path(t_game *game, char **texture_path, 
-		char **split_line)
+static int	count_elems(char **v)
 {
-	int	element_count;
+	int	i;
 
-	element_count = 0;
-	
-	/* Count elements in split line */
-	while (split_line[element_count])
-		element_count++;
-	
-	/* Handle case where line might have trailing newline as separate element */
-	if (element_count == 3 && split_line[2][0] == '\n')
+	i = 0;
+	while (v && v[i])
+		i++;
+	return (i);
+}
+
+static void	strip_trailing_nl(char *s)
+{
+	size_t	len;
+
+	if (!s)
+		return ;
+	len = ft_strlen(s);
+	if (len && s[len - 1] == '\n')
+		s[len - 1] = '\0';
+}
+
+static int	is_number(const char *s)
+{
+	int	i;
+
+	if (!s || !*s)
+		return (0);
+	i = 0;
+	while (s[i])
 	{
-		free(split_line[element_count - 1]);
-		element_count--;
+		if (!ft_isdigit((unsigned char)s[i]))
+			return (0);
+		i++;
 	}
-	
-	/* Validate line format and check for duplicates */
-	if (element_count != 2 || *texture_path != NULL)
+	return (1);
+}
+
+void	extract_texture_path(t_game *game, char **tex_path, char **split_line)
+{
+	int	n;
+
+	n = count_elems(split_line);
+	if (n >= 1)
+		strip_trailing_nl(split_line[n - 1]);
+	if (n != 2 || *tex_path != NULL)
 	{
 		free_string_array(split_line);
-		handle_parsing_error(game, "Error\nInvalid or duplicate texture definition\n");
+		handle_parsing_error(game,
+			"Error\nInvalid or duplicate texture definition\n");
 	}
-	
-	/* Extract texture path, removing any trailing newline */
-	*texture_path = ft_strdup(split_line[1]);
-	if (!*texture_path)
+	*tex_path = ft_strdup(split_line[1]);
+	if (!*tex_path)
 	{
 		free_string_array(split_line);
-		handle_parsing_error(game, "Error\nMemory allocation failed for texture path\n");
+		handle_parsing_error(game,
+			"Error\nMemory allocation failed for texture path\n");
 	}
-	
-	/* Remove trailing newline if present */
-	if ((*texture_path)[get_string_length_no_newline(*texture_path)] == '\n')
-		(*texture_path)[get_string_length_no_newline(*texture_path)] = '\0';
-	
-	/* Clean up temporary split array */
+	strip_trailing_nl(*tex_path);
 	free_string_array(split_line);
 }
 
-/* ************************************************************************** */
-/*                           RGB FORMAT VALIDATION                           */
-/* ************************************************************************** */
-
-/**
- * @brief Validate RGB color line format
- */
 int	validate_rgb_line_format(char *rgb_line)
 {
-	int	char_index;
-	int	comma_count;
+	int	i;
+	int	commas;
 
-	char_index = 0;
-	comma_count = 0;
-	
-	/* Basic validation: must start and end with digits */
-	if (!ft_isdigit(rgb_line[0]) || 
-		!ft_isdigit(rgb_line[get_string_length_no_newline(rgb_line) - 1]))
+	if (!rgb_line)
 		return (0);
-	
-	/* Length validation: maximum 11 characters for "255,255,255" */
-	if (get_string_length_no_newline(rgb_line) > 11)
+	strip_trailing_nl(rgb_line);
+	if (!ft_isdigit((unsigned char)rgb_line[0]))
 		return (0);
-	
-	/* Character and format validation */
-	while (rgb_line[char_index + 1])
+	i = 0;
+	commas = 0;
+	while (rgb_line[i])
 	{
-		/* Count commas */
-		if (rgb_line[char_index] == ',')
-			comma_count++;
-		
-		/* Check for consecutive commas (invalid) */
-		if (rgb_line[char_index] == ',' && rgb_line[char_index + 1] == ',')
+		if (rgb_line[i] == ',')
+		{
+			commas++;
+			if (rgb_line[i + 1] == ',' || rgb_line[i + 1] == '\0')
+				return (0);
+		}
+		else if (!ft_isdigit((unsigned char)rgb_line[i]))
 			return (0);
-		
-		/* Validate character types (only digits and commas allowed) */
-		if (!ft_isdigit(rgb_line[char_index]) && rgb_line[char_index] != ',')
-			return (0);
-		
-		char_index++;
+		i++;
 	}
-	
-	/* Must have exactly 2 commas for 3 color components */
-	if (comma_count != 2)
-		return (0);
-	
-	return (1);
+	return (commas == 2);
 }
 
-/**
- * @brief Parse and validate individual RGB color values
- */
-static int	parse_and_validate_rgb_values(int *rgb_array, char *rgb_line)
+int	parse_and_validate_rgb_values(int *rgb, char *rgb_line)
 {
-	int	char_index;
-	int	component_index;
+	char	**parts;
+	int		n;
+	int		i;
+	int		val;
 
-	char_index = 0;
-	component_index = 1;
-	
-	/* Validate format before parsing */
 	if (!validate_rgb_line_format(rgb_line))
 		return (0);
-	
-	/* Parse first RGB component */
-	rgb_array[0] = ft_atoi(rgb_line);
-	
-	/* Find and parse remaining components */
-	while (rgb_line[char_index])
+	parts = ft_split(rgb_line, ',');
+	if (!parts)
+		return (0);
+	n = count_elems(parts);
+	if (n != 3)
+		return (free_string_array(parts), 0);
+	i = 0;
+	while (i < 3)
 	{
-		if (rgb_line[char_index] == ',' && component_index < 3)
-		{
-			rgb_array[component_index] = ft_atoi(rgb_line + char_index + 1);
-			component_index++;
-		}
-		char_index++;
+		strip_trailing_nl(parts[i]);
+		if (!is_number(parts[i]))
+			return (free_string_array(parts), 0);
+		val = ft_atoi(parts[i]);
+		if (val < 0 || val > 255)
+			return (free_string_array(parts), 0);
+		rgb[i] = val;
+		i++;
 	}
-	
-	/* Validate all RGB values are within valid range [0-255] */
-	component_index = 0;
-	while (component_index < 3)
-	{
-		if (rgb_array[component_index] < 0 || rgb_array[component_index] > 255)
-			return (0);
-		component_index++;
-	}
-	
-	return (1);
+	return (free_string_array(parts), 1);
 }
 
-/* ************************************************************************** */
-/*                           RGB COLOR EXTRACTION                            */
-/* ************************************************************************** */
-
-/**
- * @brief Extract RGB color values from configuration line
- */
-void	extract_rgb_colors(t_game *game, int *rgb_array, char **split_line)
+void	extract_rgb_colors(t_game *game, int *rgb, char **split_line)
 {
-	int	element_count;
+	int	n;
 
-	element_count = 0;
-	
-	/* Count elements in split line */
-	while (split_line[element_count])
-		element_count++;
-	
-	/* Handle potential trailing newline as separate element */
-	if (element_count == 3 && split_line[2][0] == '\n')
-	{
-		free(split_line[element_count - 1]);
-		element_count--;
-	}
-	
-	/* Validate line format */
-	if (element_count != 2)
+	n = count_elems(split_line);
+	if (n >= 1)
+		strip_trailing_nl(split_line[n - 1]);
+	if (n != 2)
 	{
 		free_string_array(split_line);
 		handle_parsing_error(game, "Error\nInvalid color definition format\n");
 	}
-	
-	/* Parse and validate RGB values */
-	if (!parse_and_validate_rgb_values(rgb_array, split_line[1]))
+	if (!parse_and_validate_rgb_values(rgb, split_line[1]))
 	{
 		free_string_array(split_line);
-		handle_parsing_error(game, "Error\nInvalid RGB color values (must be 0-255)\n");
+		handle_parsing_error(game,
+			"Error\nInvalid RGB color values (must be 0-255)\n");
 	}
-	
-	/* Clean up temporary split array */
 	free_string_array(split_line);
 }

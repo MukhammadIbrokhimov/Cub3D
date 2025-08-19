@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 17:04:35 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/19 19:13:53 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <fcntl.h>
 # include <stddef.h>
 # include <mlx.h>
@@ -28,6 +29,29 @@
 # include "keys.h"
 # include "game_struct.h"
 # include "../Libft/libft.h"
+
+/* Map characters */
+# define WALL '1'
+# define EMPTY '0'
+# define NORTHH 'N'
+# define SOUTHH 'S'
+# define EASTT 'E'
+# define WESTT 'W'
+# define SPACE ' '
+# define MAX_MAP_LINES 1000
+
+/* Error messages */
+# define ERR_FILE_EXT "File must have .cub extension"
+# define ERR_FILE_OPEN "Cannot open file"
+# define ERR_MALLOC "Memory allocation failed"
+# define ERR_INVALID "Invalid map"
+# define ERR_NO_PLAYER "No player found in map"
+# define ERR_MULTI_PLAYER "Multiple players found"
+# define ERR_MAP_NOT_CLOSED "Map is not surrounded by walls"
+# define ERR_INVALID_CHAR "Invalid character in map"
+# define ERR_MISSING_TEXTURE "Missing texture path"
+# define ERR_INVALID_COLOR "Invalid color format"
+# define ERR_INVALID_MAP "Error\nInvalid character '/' found in map data\n"
 
 /* ************************************************************************** */
 /*                               CONSTANTS                                    */
@@ -61,10 +85,10 @@
  */
 enum e_direction
 {
-	NORTH = 0,	/* North-facing wall */
-	SOUTH = 1,	/* South-facing wall */
-	EAST = 2,	/* East-facing wall */
-	WEST = 3	/* West-facing wall */
+	NORTH = 0,	
+	SOUTH = 1,	
+	EAST = 2,
+	WEST = 3
 };
 
 /* ************************************************************************** */
@@ -101,7 +125,7 @@ int		clean_exit_program(t_game *game);
 /* ========================================================================== */
 
 void	handle_parsing_error(t_game *game, char *error_message);
-void	read_and_parse_map_file(int file_descriptor, t_game *game);
+int		read_and_parse_map_file(int file_descriptor, t_game *game);
 int		parse_map_file(t_game *game, int file_descriptor);
 
 /* ========================================================================== */
@@ -121,7 +145,7 @@ int		validate_map_column(char **map_array, int row, int col, int total_rows);
 int		validate_vertical_walls(t_game *game, int start_row, int start_col);
 int		validate_map_line(t_game *game, char *line_to_check, int start_col);
 int		validate_horizontal_walls(t_game *game, int start_row, int start_col);
-int		validate_map_walls(t_game *game);
+bool	validate_map_walls(t_game *game);
 
 /* ========================================================================== */
 /*                          MAP STATISTICS                                   */
