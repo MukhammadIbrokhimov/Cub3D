@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:28:22 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 15:37:36 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/19 19:53:33 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,16 @@
 
 static int	validate_file_extension(char *filename)
 {
-	int	filename_length;
-	int	extension_index;
+	char	*ext;
+	size_t		len;
+	size_t		ext_len;
 
-	filename_length = ft_strlen(filename);
-	if (filename_length < 4)
-		return (0);
-	extension_index = 0;
-	filename_length -= 4;
-	while (filename[filename_length] != '\0')
-	{
-		if (extension_index == 0 && filename[filename_length] != '.')
-			return (0);
-		if (extension_index == 1 && filename[filename_length] != 'c')
-			return (0);
-		if (extension_index == 2 && filename[filename_length] != 'u')
-			return (0);
-		if (extension_index == 3 && filename[filename_length] != 'b')
-			return (0);
-		filename_length++;
-		extension_index++;
-	}
-	return (1);
+	ext = ".cub";
+	len = ft_strlen(filename);
+	ext_len = ft_strlen(ext);
+	if (len < ext_len)
+		return (false);
+	return (ft_strcmp(filename + len - ext_len, ext) == 0);
 }
 
 int	is_valid_file_descriptor(int fd)
