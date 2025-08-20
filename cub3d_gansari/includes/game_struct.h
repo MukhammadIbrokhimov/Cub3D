@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:54:13 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/12 17:09:24 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/20 21:12:00 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ typedef struct s_player
 	char		initial_dir;		/* Initial player direction (N/S/E/W) */
 	double		move_speed;			/* Player movement speed */
 	double		rotate_speed;		/* Player rotation speed */
+	int			key_w;		/* Forward movement */
+	int			key_s;		/* Backward movement */
+	int			key_a;		/* Strafe left */
+	int			key_d;		/* Strafe right */
+	int			key_left;	/* Turn left */
+	int			key_right;	/* Turn right */
 }	t_player;
 
 /**
@@ -135,9 +141,6 @@ typedef struct s_game
 	t_wall			wall;			/* Wall rendering data */
 	t_textures		textures;		/* Texture management */
 }	t_game;
-
-/* Legacy typedef for backward compatibility */
-typedef t_game t_game_map;
 
 /* ************************************************************************** */
 /*                           STRUCTURE DOCUMENTATION                         */
