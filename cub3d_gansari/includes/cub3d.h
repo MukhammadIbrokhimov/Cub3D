@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/19 19:13:53 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/20 21:12:33 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 # define TEXTURE_SIZE	128		/* Size of wall textures (128x128) */
 
 /* Movement and rotation speeds */
-# define MOVE_SPEED		0.09	/* Player movement speed */
-# define ROTATION_SPEED	0.09	/* Player rotation speed */
+# define MOVE_SPEED		0.04	/* Player movement speed */
+# define ROTATION_SPEED	0.04	/* Player rotation speed */
 
 /* Minimap settings */
 # define MINIMAP_SCALE	7		/* Scale factor for minimap */
@@ -178,12 +178,17 @@ int		init_game_engine(t_game *game);
 
 int		handle_keyboard_input(int keycode, t_game *game);
 int		handle_mouse_rotation(int mouse_x, int mouse_y, t_game *game);
+int		handle_keyboard_input(int keycode, t_game *game);
+int		handle_mouse_rotation(int mouse_x, int mouse_y, t_game *game);
+int		handle_key_press(int keycode, t_game *game);
+int		handle_key_release(int keycode, t_game *game);
+void	process_movement_input(t_game *game);
 
 /* ========================================================================== */
 /*                           PLAYER MOVEMENT                                 */
 /* ========================================================================== */
 
-void	move_player_with_collision(t_game *game, double delta_x, double delta_y, char direction_sign);
+void	move_player_with_collision(t_game *game, double delta_x, double delta_y);
 void	rotate_player_view(t_game *game, double rotation_speed);
 
 /* ========================================================================== */
