@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:50:44 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/20 20:25:28 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/21 14:52:04 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	handle_key_release(int keycode, t_game *game)
 	return (0);
 }
 
-static void	process_player_key_input(t_game *game, double *move_x, double *move_y)
+void	process_player_key_input(t_game *game, double *move_x, double *move_y)
 {
 	if (game->player.key_w)
 	{
@@ -74,9 +74,11 @@ static void	process_player_key_input(t_game *game, double *move_x, double *move_
 
 void	process_movement_input(t_game *game)
 {
-	double	move_x = 0.0;
-	double	move_y = 0.0;
+	double	move_x;
+	double	move_y;
 
+	move_x = 0.0;
+	move_y = 0.0;
 	process_player_key_input(game, &move_x, &move_y);
 	if (move_x != 0.0 || move_y != 0.0)
 		move_player_with_collision(game, move_x, move_y);

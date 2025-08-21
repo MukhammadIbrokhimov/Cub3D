@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:48:57 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/21 13:27:43 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:10:29 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @brief Set player position and initial direction vectors
  */
 
-void	set_player_position_and_direction(t_game *game, char direction,
+void	set_player_position(t_game *game, char direction,
 		int row, int col)
 {
 	game->player.pos_y = (double)row;
@@ -61,7 +61,7 @@ int	scan_row(char *row, t_scan_data *data)
 	{
 		if (is_character_valid(row[c], "NSEW"))
 		{
-			set_player_position_and_direction(data->game, row[c],
+			set_player_position(data->game, row[c],
 				data->row, data->base + c);
 			(*data->player_count)++;
 		}

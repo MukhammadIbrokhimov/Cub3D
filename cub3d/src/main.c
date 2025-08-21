@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:30:20 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 15:29:03 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/21 14:08:05 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int argc, char **argv)
 	if (!is_valid_file_descriptor(fd))
 		return (3);
 	init_game_structure(&game);
-	if(!is_parseable_map_file(&game, fd))
+	if (!is_parseable_map_file(&game, fd))
 		return (4);
 	close(fd);
 	if (init_game_engine(&game) != 0)

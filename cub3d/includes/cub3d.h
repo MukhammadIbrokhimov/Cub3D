@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 13:52:47 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 15:11:31 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define ERR_MISSING_TEXTURE "Missing texture path"
 # define ERR_INVALID_COLOR "Invalid color format"
 # define ERR_INVALID_MAP "Error\nInvalid character '/' found in map data\n"
+# define ERR_SCREEN_BUFFER "Error\nFailed to get screen buffer\n"
 
 /* ************************************************************************** */
 /*                               CONSTANTS                                    */
@@ -154,15 +155,15 @@ bool	validate_map_walls(t_game *game);
 /*                          MAP STATISTICS                                   */
 /* ========================================================================== */
 
-void	set_player_position_and_direction(t_game *game, char direction, int row, int col);
-void	calculate_map_dimensions(t_game *game, char **map_array, int start_row, int start_col);
+void	set_player_position(t_game *game, char direction, int row, int col);
+void	calculate_map_dimensions(t_game *game, char **map, int srow, int scol);
 void	validate_configuration_completeness(t_game *game);
 int		extract_map_statistics(t_game *game, char *config_line);
 
 /* ========================================================================== */
 /*                        RGB AND TEXTURE PARSING                           */
 /* ========================================================================== */
-
+void	load_texture_image(t_game *game, t_image *texture);
 void	extract_texture(t_game *game, char **texture_path, char **split_line);
 int		validate_rgb_line_format(char *rgb_line);
 void	extract_rgb_colors(t_game *game, int *rgb_array, char **split_line);
@@ -191,10 +192,10 @@ void	process_movement_input(t_game *game);
 /* ========================================================================== */
 /*                           PLAYER MOVEMENT                                 */
 /* ========================================================================== */
-
+void	init_player_input(t_game *game);
 void	move_player_with_collision(t_game *game, double delta_x, double delta_y);
 void	rotate_player_view(t_game *game, double rotation_speed);
-
+void	process_player_key_input(t_game *game, double *move_x, double *move_y);
 /* ========================================================================== */
 /*                            RAYCASTING ENGINE                              */
 /* ========================================================================== */
@@ -204,13 +205,12 @@ void	calculate_step_and_side_distances(t_game *game);
 void	execute_dda_algorithm(t_game *game);
 void	init_raycasting_for_column(t_game *game, int screen_x);
 void	execute_raycasting(t_game *game);
-
+void	calculate_coordinates(t_game *game, int line_start, int line_height);
 /* ========================================================================== */
 /*                            RENDERING UTILITIES                            */
 /* ========================================================================== */
 
-int		get_texture_color(t_game *game, int tex_x, int tex_y, int texture_index);
-
+int	get_texture_color(t_game *game, int x, int y, int texture_index);
 /* ========================================================================== */
 /*                              DRAWING FUNCTIONS                            */
 /* ========================================================================== */

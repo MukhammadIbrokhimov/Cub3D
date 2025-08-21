@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_mlx_image.c                                :+:      :+:    :+:   */
+/*   destroy_mlx_memory.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 16:53:16 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 16:57:40 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/21 14:45:05 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	cleanup_mlx_resources(t_game *game)
 		mlx_destroy_window(game->mlx.instance, game->mlx.window);
 		game->mlx.window = NULL;
 	}
-	
 	if (game->mlx.instance)
 	{
 		mlx_destroy_display(game->mlx.instance);
