@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wall_validation.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/21 14:02:29 by mukibrok          #+#    #+#             */
+/*   Updated: 2025/08/21 14:02:43 by mukibrok         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/cub3d.h"
 #include <stdbool.h>
 
@@ -18,7 +30,6 @@ bool	validate_map_row(char *row)
 			return (false);
 		if (row[i] == ' ')
 		{
-			/* must be enclosed by wall */
 			if (i > 0 && row[i - 1] != '1')
 				return (false);
 			while (row[i] == ' ')
@@ -49,7 +60,6 @@ bool	validate_map_col(char **grid, int col, int height)
 			return (false);
 		if (grid[row][col] == ' ')
 		{
-			/* must be enclosed by wall */
 			if (row > 0 && grid[row - 1][col] != '1')
 				return (false);
 			while (row < height && grid[row][col] == ' ')

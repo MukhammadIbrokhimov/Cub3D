@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/20 21:12:33 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/21 13:52:47 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,9 +133,12 @@ int		parse_map_file(t_game *game, int file_descriptor);
 /* ========================================================================== */
 
 int		is_character_valid(char character, char *valid_chars);
+int		is_number(const char *s);
+int		count_elems(char **v);
 int		get_string_length_no_newline(char *string);
-char	*resize_string_to_size(char *original_string, int target_size);
-char	*join_strings_with_separator(char *string1, char *string2);
+char	*resize(char *original_string, int target_size);
+char	*join_strings(char *string1, char *string2);
+void	strip_trailing_nl(char *s);
 
 /* ========================================================================== */
 /*                          WALL VALIDATION                                  */
@@ -153,13 +156,14 @@ bool	validate_map_walls(t_game *game);
 
 void	set_player_position_and_direction(t_game *game, char direction, int row, int col);
 void	calculate_map_dimensions(t_game *game, char **map_array, int start_row, int start_col);
+void	validate_configuration_completeness(t_game *game);
 int		extract_map_statistics(t_game *game, char *config_line);
 
 /* ========================================================================== */
 /*                        RGB AND TEXTURE PARSING                           */
 /* ========================================================================== */
 
-void	extract_texture_path(t_game *game, char **texture_path, char **split_line);
+void	extract_texture(t_game *game, char **texture_path, char **split_line);
 int		validate_rgb_line_format(char *rgb_line);
 void	extract_rgb_colors(t_game *game, int *rgb_array, char **split_line);
 

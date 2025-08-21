@@ -6,15 +6,11 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:49:35 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/19 19:50:51 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 13:46:08 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-/**
- * @brief Validate that the parsed map meets all requirements
- */
 
 int	validate_parsed_map(t_game *game)
 {
@@ -25,10 +21,6 @@ int	validate_parsed_map(t_game *game)
 	}
 	return (1);
 }
-
-/**
- * @brief Handle parsing errors with proper cleanup and messaging
- */
 
 void	handle_parsing_error(t_game *game, char *error_message)
 {
@@ -43,10 +35,6 @@ void	handle_parsing_error(t_game *game, char *error_message)
 	exit(EXIT_FAILURE);
 }
 
-/**
- * @brief Normalize map to rectangular format for easier processing
- */
-
 void	normalize_map_dimensions(t_game *g)
 {
 	int	i;
@@ -59,7 +47,7 @@ void	normalize_map_dimensions(t_game *g)
 	{
 		if (get_string_length_no_newline(g->map.grid[i]) < g->map.width)
 		{
-			g->map.grid[i] = resize_string_to_size(g->map.grid[i], g->map.width);
+			g->map.grid[i] = resize(g->map.grid[i], g->map.width);
 			if (!g->map.grid[i])
 				handle_parsing_error(g, ERR_MALLOC);
 		}
@@ -67,46 +55,39 @@ void	normalize_map_dimensions(t_game *g)
 	}
 }
 
-/**
- * @brief Read and parse the entire map configuration file
- */
-
 int	read_and_parse_map_file(int fd, t_game *g)
 {
 	char	*line;
 	int		parsing;
+	char	*buffer;
 
 	parsing = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		if (line[0] == '\n')
 			line[0] = ' ';
 		if (!parsing)
 			parsing = extract_map_statistics(g, line);
+		if (parsing && ft_strchr(line, '/'))
+			return (free(line), handle_parsing_error(g, ERR_INVALID_MAP), 0);
 		if (parsing)
-		{
-			if (ft_strchr(line, '/'))
-			{
-				free(line);
-				return (handle_parsing_error(g, ERR_INVALID_MAP), EXIT_FAILURE);
-			}
-			g->map.data_buffer = join_strings_with_separator(g->map.data_buffer, line);
-		}
+			g->map.data_buffer = join_strings(g->map.data_buffer, line);
 		free(line);
+		line = get_next_line(fd);
 	}
-	g->map.grid = ft_split(g->map.data_buffer ? g->map.data_buffer : "", '/');
-	free(g->map.data_buffer);
-	g->map.data_buffer = NULL;
-	return (normalize_map_dimensions(g), EXIT_SUCCESS);
+	buffer = "";
+	if (g->map.data_buffer)
+		buffer = g->map.data_buffer;
+	g->map.grid = ft_split(buffer, '/');
+	return (free(g->map.data_buffer), g->map.data_buffer = NULL, 1);
 }
-
-/**
- * @brief Main map file parsing function
- */
 
 int	parse_map_file(t_game *game, int file_descriptor)
 {
-	read_and_parse_map_file(file_descriptor, game);
+	if (!read_and_parse_map_file(file_descriptor, game))
+		return (0);
+	normalize_map_dimensions(game);
 	if (!validate_parsed_map(game))
 		return (0);
 	close(file_descriptor);

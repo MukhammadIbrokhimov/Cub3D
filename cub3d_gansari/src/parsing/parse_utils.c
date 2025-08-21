@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:53:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/19 19:53:20 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:02:06 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	get_string_length_no_newline(char *string)
  * @brief Resize a string to a specific length, padding with spaces
  */
 
-char	*resize_string_to_size(char *original_string, int target_size)
+char	*resize(char *org_str, int target_size)
 {
 	int		copy_index;
 	char	*resized_string;
@@ -57,9 +57,9 @@ char	*resize_string_to_size(char *original_string, int target_size)
 	resized_string = malloc(sizeof(char) * (target_size + 1));
 	if (!resized_string)
 		return (NULL);
-	while (original_string && original_string[copy_index] && copy_index < target_size)
+	while (org_str && org_str[copy_index] && copy_index < target_size)
 	{
-		resized_string[copy_index] = original_string[copy_index];
+		resized_string[copy_index] = org_str[copy_index];
 		copy_index++;
 	}
 	while (copy_index < target_size)
@@ -68,8 +68,8 @@ char	*resize_string_to_size(char *original_string, int target_size)
 		copy_index++;
 	}
 	resized_string[target_size] = '\0';
-	if (original_string)
-		free(original_string);
+	if (org_str)
+		free(org_str);
 	return (resized_string);
 }
 
@@ -77,7 +77,7 @@ char	*resize_string_to_size(char *original_string, int target_size)
  * @brief Join two strings with a forward slash separator
  */
 
-char	*join_strings_with_separator(char *first_string, char *second_string)
+char	*join_strings(char *first_string, char *second_string)
 {
 	int		total_length;
 	int		copy_index;

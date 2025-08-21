@@ -28,8 +28,10 @@ MAIN_FILES		= main.c \
 PARSING_FILES	= parsing/parse_main.c \
 				  parsing/parse_utils.c \
 				  parsing/parse_rgb_texture.c \
+				  parsing/parse_rgb_helper.c \
 				  parsing/map_statistics.c \
-				  parsing/wall_validation.c
+				  parsing/wall_validation.c \
+				  parsing/extract_map_statistics.c
 
 GAME_FILES		= game/game_init.c \
 				  game/input_handling.c \
