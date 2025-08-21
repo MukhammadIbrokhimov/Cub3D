@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:48:57 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/19 19:48:59 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 13:27:43 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,15 @@ void	set_player_position_and_direction(t_game *game, char direction,
 	}
 }
 
-int	scan_row(t_game *g, char *row, int r, int base, int *pc)
+typedef struct s_scan_data
+{
+	t_game	*game;
+	int		row;
+	int		base;
+	int		*player_count;
+}	t_scan_data;
+
+int	scan_row(char *row, t_scan_data *data)
 {
 	int	c;
 
@@ -53,35 +61,52 @@ int	scan_row(t_game *g, char *row, int r, int base, int *pc)
 	{
 		if (is_character_valid(row[c], "NSEW"))
 		{
-			set_player_position_and_direction(g, row[c], r, base + c);
-			(*pc)++;
+			set_player_position_and_direction(data->game, row[c],
+				data->row, data->base + c);
+			(*data->player_count)++;
 		}
 		c++;
 	}
 	return (c);
 }
 
+static void	set_map_dimensions(t_game *game, int pc, int max_w, int row)
+{
+	if (pc == 1)
+	{
+		game->map.width = max_w;
+		game->map.height = row;
+	}
+	else
+	{
+		game->map.width = 0;
+		game->map.height = 0;
+	}
+}
+
 void	calculate_map_dimensions(t_game *game, char **map, int srow, int scol)
 {
-	int	row;
-	int	max_w;
-	int	pc;
-	int	w;
+	int			row;
+	int			max_w;
+	int			pc;
+	int			w;
+	t_scan_data	data;
 
 	row = srow;
 	max_w = 0;
 	pc = 0;
+	data.game = game;
+	data.player_count = &pc;
 	while (map[row])
 	{
-		w = scan_row(game, map[row] + scol, row, scol, &pc);
+		data.row = row;
+		data.base = scol;
+		w = scan_row(map[row] + scol, &data);
 		if (w > max_w)
 			max_w = w;
 		row++;
 	}
-	if (pc == 1)
-		(game->map.width = max_w, game->map.height = row);
-	else
-		(game->map.width = 0, game->map.height = 0);
+	set_map_dimensions(game, pc, max_w, row);
 }
 
 /**
@@ -92,10 +117,10 @@ void	validate_configuration_completeness(t_game *game)
 {
 	int	color_index;
 
-	if (!game->textures.north.path || !game->textures.south.path ||
-		!game->textures.west.path || !game->textures.east.path)
+	if (!game->textures.north.path || !game->textures.south.path
+		|| !game->textures.west.path || !game->textures.east.path)
 	{
-		handle_parsing_error(game, "Error\nMissing texture definitions (NO/SO/WE/EA)\n");
+		handle_parsing_error(game, ERR_MISSING_TEXTURE);
 	}
 	color_index = 0;
 	while (color_index < 3)
@@ -103,46 +128,8 @@ void	validate_configuration_completeness(t_game *game)
 		if (game->map.floor_rgb[color_index] == -1 || 
 			game->map.ceiling_rgb[color_index] == -1)
 		{
-			handle_parsing_error(game, "Error\nMissing color definitions (F/C)\n");
+			handle_parsing_error(game, ERR_INVALID_COLOR);
 		}
 		color_index++;
 	}
-}
-
-/**
- * @brief Extract configuration data from a single line
- */
-
-int	extract_map_statistics(t_game *game, char *config_line)
-{
-	static int	elements_processed = 0;
-	while (elements_processed < 6)
-	{
-		if (config_line[0] == ' ' && !config_line[1])
-			return (0);
-		if (!ft_strncmp(config_line, "NO ", 3))
-			extract_texture_path(game, &game->textures.north.path, 
-				ft_split(config_line, ' '));
-		else if (!ft_strncmp(config_line, "SO ", 3))
-			extract_texture_path(game, &game->textures.south.path, 
-				ft_split(config_line, ' '));
-		else if (!ft_strncmp(config_line, "WE ", 3))
-			extract_texture_path(game, &game->textures.west.path, 
-				ft_split(config_line, ' '));
-		else if (!ft_strncmp(config_line, "EA ", 3))
-			extract_texture_path(game, &game->textures.east.path, 
-				ft_split(config_line, ' '));
-		else if (!ft_strncmp(config_line, "F ", 2))
-			extract_rgb_colors(game, game->map.floor_rgb, 
-				ft_split(config_line, ' '));
-		else if (!ft_strncmp(config_line, "C ", 2))
-			extract_rgb_colors(game, game->map.ceiling_rgb, 
-				ft_split(config_line, ' '));
-		else
-			handle_parsing_error(game, "Error\nInvalid configuration element\n");
-		elements_processed++;
-		return (0);
-	}
-	validate_configuration_completeness(game);
-	return (1);
 }
