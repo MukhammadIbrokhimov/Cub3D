@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rendering.c                                        :+:      :+:    :+:   */
+/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/11 14:51:56 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 16:45:34 by mukibrok         ###   ########.fr       */
+/*   Created: 2024/11/14 17:42:59 by gansari           #+#    #+#             */
+/*   Updated: 2024/11/14 17:46:51 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "libft.h"
 
-int	render_frame(t_game *game)
+void	ft_putchar_fd(char c, int fd)
 {
-	process_movement_input(game);
-	render_background_colors(game);
-	execute_raycasting(game);
-	mlx_put_image_to_window(game->mlx.instance, game->mlx.window, 
-		game->textures.screen.mlx_ptr, 0, 0);
+	write(fd, &c, 1);
+}
+/*
+int	main(void)
+{
+	ft_putchar_fd('A', 1);
 	return (0);
 }
+*/

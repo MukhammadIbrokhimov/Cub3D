@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:04:12 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 16:44:42 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:11:22 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ static void	init_textures(t_game *game)
 	game->textures.west.path = NULL;
 	game->textures.screen.mlx_ptr = NULL;
 	game->textures.screen.path = NULL;
+	#ifdef BONUS
+	game->textures.minimap.mlx_ptr = NULL;
+	#endif
 }
 
 void	init_game_structure(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 16:53:16 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 16:44:33 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 14:45:05 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ static void	destroy_screen_textures(t_game *game)
 {
 	destroy_single_texture(game->mlx.instance, 
 		(void **)&game->textures.screen.mlx_ptr);
+	#ifdef BONUS
+	destroy_single_texture(game->mlx.instance, 
+		(void **)&game->textures.minimap.mlx_ptr);
+	#endif
 }
 
 void	destroy_mlx_images(t_game *game)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:13:00 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 16:50:47 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/13 12:44:44 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,9 @@ void	init_raycasting_for_column(t_game *game, int screen_x)
 {
 	game->ray.map_x = (int)game->player.pos_x;
 	game->ray.map_y = (int)game->player.pos_y;
-	game->ray.camera_x = 2 * screen_x / (double)game->mlx.width - 1;
-	game->ray.dir_x = game->player.dir_x
-		+ game->player.plane_x * game->ray.camera_x;
-	game->ray.dir_y = game->player.dir_y
-		+ game->player.plane_y * game->ray.camera_x;
+	game->ray.camera_x = 2 * screen_x / (double)game->mlx.width - 1;	
+	game->ray.dir_x = game->player.dir_x + game->player.plane_x * game->ray.camera_x;
+	game->ray.dir_y = game->player.dir_y + game->player.plane_y * game->ray.camera_x;
 }
 
 void	execute_raycasting(t_game *game)
@@ -99,11 +97,9 @@ void	execute_raycasting(t_game *game)
 		calculate_step_and_side_distances(game);
 		execute_dda_algorithm(game);
 		if (game->ray.side == 0)
-			game->ray.perp_wall_dist = (game->ray.side_dist_x
-					- game->ray.delta_dist_x);
+			game->ray.perp_wall_dist = (game->ray.side_dist_x - game->ray.delta_dist_x);
 		else
-			game->ray.perp_wall_dist = (game->ray.side_dist_y
-					- game->ray.delta_dist_y);
+			game->ray.perp_wall_dist = (game->ray.side_dist_y - game->ray.delta_dist_y);
 		draw_wall_column(game, screen_x);
 		screen_x++;
 	}

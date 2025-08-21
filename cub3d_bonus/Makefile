@@ -35,13 +35,17 @@ PARSING_FILES	= parsing/parse_main.c \
 
 GAME_FILES		= game/game_init.c \
 				  game/input_handling.c \
-				  game/player_movement.c
+				  game/player_movement.c \
+				  game/game_init_bonus.c
 
 RAYCAST_FILES	= raycasting/raycasting.c \
 				  raycasting/raycasting_utils.c \
 				  raycasting/rendering.c \
 				  raycasting/drawing.c \
 				  raycasting/drawing_utils.c \
+
+# Bonus files (minimap is bonus feature)
+BONUS_FILES		= raycasting/minimap.c
 
 # All source files
 SRCS			= $(addprefix $(SRC_DIR)/, $(MAIN_FILES) $(PARSING_FILES) $(GAME_FILES) $(RAYCAST_FILES))

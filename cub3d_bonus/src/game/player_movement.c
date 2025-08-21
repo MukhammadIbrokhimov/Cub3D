@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:51:12 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 16:47:30 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:42:09 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,16 @@ void	player_with_collision(t_game *game, double delta_x, double delta_y)
 	new_y = game->player.pos_y + delta_y;
 	if (game->map.grid[(int)new_y][(int)game->player.pos_x] != '1')
 		game->player.pos_y = new_y;
+	#ifdef BONUS
+	if ((int)game->player.pos_x != previous_grid_x || 
+		(int)game->player.pos_y != previous_grid_y)
+	{
+		update_minimap_player_position(game, previous_grid_x, previous_grid_y);
+	}
+	#else
 	(void)previous_grid_x;
 	(void)previous_grid_y;
+	#endif
 }
 
 void	rotate_player_view(t_game *game, double rotation_speed)
@@ -64,10 +72,16 @@ int	init_game_engine(t_game *game)
 		handle_game_error(game, "Error\nFailed to create game window\n");
 	init_mlx_images(game);
 	init_player_input(game);
+	#ifdef BONUS
+	init_minimap_system(game);
+	#endif
 	mlx_loop_hook(game->mlx.instance, &render_frame, game);
 	mlx_hook(game->mlx.window, 2, 1L << 0, handle_key_press, game);
 	mlx_hook(game->mlx.window, 3, 1L << 1, handle_key_release, game);
 	mlx_hook(game->mlx.window, 17, 1L << 0, clean_exit_program, game);
+	#ifdef BONUS
+	mlx_hook(game->mlx.window, 6, 1L << 6, handle_mouse_rotation, game);
+	#endif
 	mlx_loop(game->mlx.instance);
 	return (0);
 }
