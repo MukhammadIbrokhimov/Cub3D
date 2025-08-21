@@ -259,4 +259,4 @@ endif
 	@echo "  MLX Flags: $(GREEN)$(MLX_FLAGS)$(RESET)"
 
 # Declare phony targets
-.PHONY: all clean fclean re bonus help norm test install-deps info check_build_type
+.PHONY: all clean fclean re help norm test install-deps info check_build_type

@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:54:13 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 15:08:53 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:32:59 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,7 @@ typedef struct s_textures
 	t_image		east;
 	t_image		west;
 	t_image		screen;
-	
-	#ifdef BONUS
 	t_image		minimap;
-	#endif
 }	t_textures;
 
 /**

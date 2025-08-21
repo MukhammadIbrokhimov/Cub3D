@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:50:44 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/21 16:42:27 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:35:01 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,28 +117,3 @@ int	handle_keyboard_input(int keycode, t_game *game)
 	return (0);
 }
 
-#ifdef BONUS
-int	handle_mouse_rotation(int mouse_x, int mouse_y, t_game *game)
-{
-	double	mouse_rotation_speed;
-
-	(void)mouse_y;	
-	mouse_rotation_speed = game->player.rotate_speed / 3.0;
-	
-	if (game->player.initial_dir == 'N' || game->player.initial_dir == 'S')
-	{
-		if (mouse_x > (int)(game->mlx.width / 1.2))
-			rotate_player_view(game, mouse_rotation_speed);
-		else if (mouse_x < game->mlx.width / 6)
-			rotate_player_view(game, -mouse_rotation_speed);
-	}
-	else
-	{
-		if (mouse_x > (int)(game->mlx.width / 1.2))
-			rotate_player_view(game, -mouse_rotation_speed);
-		else if (mouse_x < game->mlx.width / 6)
-			rotate_player_view(game, mouse_rotation_speed);
-	}
-	return (0);
-}
-#endif
