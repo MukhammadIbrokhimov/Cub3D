@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/22 13:35:47 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 15:03:51 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,14 @@ enum e_direction
 	EAST = 2,
 	WEST = 3
 };
+
+typedef struct s_scan_data
+{
+	t_game	*game;
+	int		row;
+	int		base;
+	int		*player_count;
+}	t_scan_data;
 
 /* ************************************************************************** */
 /*                           FUNCTION PROTOTYPES                             */
@@ -187,7 +195,6 @@ int		init_game_engine(t_game *game);
 
 int		handle_keyboard_input(int keycode, t_game *game);
 int		handle_mouse_rotation(int mouse_x, int mouse_y, t_game *game);
-int		handle_keyboard_input(int keycode, t_game *game);
 int		handle_mouse_rotation(int mouse_x, int mouse_y, t_game *game);
 int		handle_key_press(int keycode, t_game *game);
 int		handle_key_release(int keycode, t_game *game);

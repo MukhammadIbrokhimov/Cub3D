@@ -35,6 +35,7 @@ PARSING_FILES	= parsing/parse_main.c \
 
 GAME_FILES		= game/game_init.c \
 				  game/input_handling.c \
+				  game/handle_keyboard_input.c \
 				  game/player_movement.c \
 				  game/game_init_bonus.c
 
