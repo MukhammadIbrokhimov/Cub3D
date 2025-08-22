@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/22 12:45:54 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 13:35:47 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,11 @@ int		parse_map_file(t_game *game, int file_descriptor);
 
 int		is_character_valid(char character, char *valid_chars);
 int		get_string_length_no_newline(char *string);
-char	*resize_string_to_size(char *original_string, int target_size);
-char	*join_strings_with_separator(char *string1, char *string2);
+char	*resize(char *org_str, int target_size);
+char	*join_strings(char *first_string, char *second_string);
+int		count_elems(char **v);
+void	strip_trailing_nl(char *s);
+int		is_number(const char *s);
 
 /* ========================================================================== */
 /*                          WALL VALIDATION                                  */
@@ -156,6 +159,7 @@ void	set_player_position_and_direction(t_game *game, char direction,
 void	calculate_map_dimensions(t_game *game, char **map_array,
 			int start_row, int start_col);
 int		extract_map_statistics(t_game *game, char *config_line);
+void	validate_configuration_completeness(t_game *game);
 
 /* ========================================================================== */
 /*                        RGB AND TEXTURE PARSING                           */
@@ -163,8 +167,10 @@ int		extract_map_statistics(t_game *game, char *config_line);
 
 void	extract_texture_path(t_game *game, char **texture_path,
 			char **split_line);
+void	extract_texture(t_game *game, char **tex_path, char **split_line);
 int		validate_rgb_line_format(char *rgb_line);
 void	extract_rgb_colors(t_game *game, int *rgb_array, char **split_line);
+int		parse_and_validate_rgb_values(int *rgb, char *rgb_line);
 
 /* ========================================================================== */
 /*                             GAME INITIALIZATION                           */

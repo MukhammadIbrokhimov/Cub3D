@@ -28,6 +28,8 @@ MAIN_FILES		= main.c \
 PARSING_FILES	= parsing/parse_main.c \
 				  parsing/parse_utils.c \
 				  parsing/parse_rgb_texture.c \
+				  parsing/parse_rgb_helper.c \
+				  parsing/extract_map_statistics.c \
 				  parsing/map_statistics.c \
 				  parsing/wall_validation.c
 
