@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 15:28:22 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/19 19:53:33 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/22 12:52:13 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int	validate_file_extension(char *filename)
 {
 	char	*ext;
-	size_t		len;
-	size_t		ext_len;
+	size_t	len;
+	size_t	ext_len;
 
 	ext = ".cub";
 	len = ft_strlen(filename);
@@ -49,7 +49,7 @@ int	validate_arguments(int argc, char **argv)
 
 int	is_parseable_map_file(t_game *game, int fd)
 {
-	if(!is_valid_file_descriptor(fd))
+	if (!is_valid_file_descriptor(fd))
 		return (0);
 	if (!parse_map_file(game, fd))
 	{
