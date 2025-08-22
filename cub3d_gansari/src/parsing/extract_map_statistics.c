@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   extract_map_statistics.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 13:11:06 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/21 13:51:25 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/22 13:44:54 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 static int	process_texture_config(t_game *game, char *config_line)
 {
 	if (!ft_strncmp(config_line, "NO ", 3))
-		extract_texture(game, &game->textures.north.path, 
+		extract_texture(game, &game->textures.north.path,
 			ft_split(config_line, ' '));
 	else if (!ft_strncmp(config_line, "SO ", 3))
-		extract_texture(game, &game->textures.south.path, 
+		extract_texture(game, &game->textures.south.path,
 			ft_split(config_line, ' '));
 	else if (!ft_strncmp(config_line, "WE ", 3))
-		extract_texture(game, &game->textures.west.path, 
+		extract_texture(game, &game->textures.west.path,
 			ft_split(config_line, ' '));
 	else if (!ft_strncmp(config_line, "EA ", 3))
-		extract_texture(game, &game->textures.east.path, 
+		extract_texture(game, &game->textures.east.path,
 			ft_split(config_line, ' '));
 	else
 		return (0);
@@ -34,10 +34,10 @@ static int	process_texture_config(t_game *game, char *config_line)
 static int	process_color_config(t_game *game, char *config_line)
 {
 	if (!ft_strncmp(config_line, "F ", 2))
-		extract_rgb_colors(game, game->map.floor_rgb, 
+		extract_rgb_colors(game, game->map.floor_rgb,
 			ft_split(config_line, ' '));
 	else if (!ft_strncmp(config_line, "C ", 2))
-		extract_rgb_colors(game, game->map.ceiling_rgb, 
+		extract_rgb_colors(game, game->map.ceiling_rgb,
 			ft_split(config_line, ' '));
 	else
 		return (0);

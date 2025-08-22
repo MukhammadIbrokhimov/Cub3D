@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_statistics.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:48:57 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/21 15:10:29 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/22 13:48:30 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ void	set_player_position(t_game *game, char direction,
 		game->player.dir_y = 0.0;
 	}
 }
-
-typedef struct s_scan_data
-{
-	t_game	*game;
-	int		row;
-	int		base;
-	int		*player_count;
-}	t_scan_data;
 
 int	scan_row(char *row, t_scan_data *data)
 {
@@ -125,8 +117,8 @@ void	validate_configuration_completeness(t_game *game)
 	color_index = 0;
 	while (color_index < 3)
 	{
-		if (game->map.floor_rgb[color_index] == -1 || 
-			game->map.ceiling_rgb[color_index] == -1)
+		if (game->map.floor_rgb[color_index] == -1
+			|| game->map.ceiling_rgb[color_index] == -1)
 		{
 			handle_parsing_error(game, ERR_INVALID_COLOR);
 		}

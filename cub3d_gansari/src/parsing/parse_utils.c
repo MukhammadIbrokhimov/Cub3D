@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:53:18 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/21 14:02:06 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/22 13:47:59 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ char	*join_strings(char *first_string, char *second_string)
 	char	*joined_string;
 
 	copy_index = 0;
-	total_length = get_string_length_no_newline(first_string) + 
-		get_string_length_no_newline(second_string);
+	total_length = get_string_length_no_newline(first_string)
+		+ get_string_length_no_newline(second_string);
 	joined_string = malloc(sizeof(char) * (total_length + 2));
 	if (!joined_string)
 		return (NULL);
