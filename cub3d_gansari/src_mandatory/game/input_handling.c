@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:50:44 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/22 15:07:17 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 16:47:14 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,3 @@ void	process_movement_input(t_game *game)
 	if (game->player.key_right)
 		rotate_player_view(game, game->player.rotate_speed);
 }
-

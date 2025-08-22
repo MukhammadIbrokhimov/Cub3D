@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 14:51:12 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/22 15:25:33 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 16:46:22 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	move_player_with_collision(t_game *game, double delta_x, double delta_y)
 	new_y = game->player.pos_y + delta_y;
 	if (game->map.grid[(int)new_y][(int)game->player.pos_x] != '1')
 		game->player.pos_y = new_y;
-	if ((int)game->player.pos_x != previous_grid_x || 
-		(int)game->player.pos_y != previous_grid_y)
+	if ((int)game->player.pos_x != previous_grid_x
+		|| (int)game->player.pos_y != previous_grid_y)
 	{
 		update_minimap_player_position(game, previous_grid_x, previous_grid_y);
 	}
