@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/22 15:03:51 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 17:15:38 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,8 @@ int		parse_map_file(t_game *game, int file_descriptor);
 /* ========================================================================== */
 
 int		is_character_valid(char character, char *valid_chars);
+int		is_number(const char *s);
+int		count_elems(char **v);
 int		get_string_length_no_newline(char *string);
 char	*resize(char *org_str, int target_size);
 char	*join_strings(char *first_string, char *second_string);
