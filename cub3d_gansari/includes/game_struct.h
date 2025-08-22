@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 12:54:13 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/20 21:12:00 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:46:43 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,6 @@ typedef struct s_textures
 	t_image		east;				/* East wall texture */
 	t_image		west;				/* West wall texture */
 	t_image		screen;				/* Main display buffer */
-	
 	#ifdef BONUS
 	t_image		minimap;			/* Minimap image data (bonus feature) */
 	#endif

@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/20 21:12:33 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:45:54 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,15 +151,18 @@ bool	validate_map_walls(t_game *game);
 /*                          MAP STATISTICS                                   */
 /* ========================================================================== */
 
-void	set_player_position_and_direction(t_game *game, char direction, int row, int col);
-void	calculate_map_dimensions(t_game *game, char **map_array, int start_row, int start_col);
+void	set_player_position_and_direction(t_game *game, char direction,
+			int row, int col);
+void	calculate_map_dimensions(t_game *game, char **map_array,
+			int start_row, int start_col);
 int		extract_map_statistics(t_game *game, char *config_line);
 
 /* ========================================================================== */
 /*                        RGB AND TEXTURE PARSING                           */
 /* ========================================================================== */
 
-void	extract_texture_path(t_game *game, char **texture_path, char **split_line);
+void	extract_texture_path(t_game *game, char **texture_path,
+			char **split_line);
 int		validate_rgb_line_format(char *rgb_line);
 void	extract_rgb_colors(t_game *game, int *rgb_array, char **split_line);
 
@@ -188,7 +191,8 @@ void	process_movement_input(t_game *game);
 /*                           PLAYER MOVEMENT                                 */
 /* ========================================================================== */
 
-void	move_player_with_collision(t_game *game, double delta_x, double delta_y);
+void	move_player_with_collision(t_game *game, double delta_x,
+			double delta_y);
 void	rotate_player_view(t_game *game, double rotation_speed);
 
 /* ========================================================================== */
@@ -205,7 +209,8 @@ void	execute_raycasting(t_game *game);
 /*                            RENDERING UTILITIES                            */
 /* ========================================================================== */
 
-int		get_texture_color(t_game *game, int tex_x, int tex_y, int texture_index);
+int		get_texture_color(t_game *game, int tex_x, int tex_y,
+			int texture_index);
 
 /* ========================================================================== */
 /*                              DRAWING FUNCTIONS                            */
@@ -229,7 +234,8 @@ void	render_background_colors(t_game *game);
 #ifdef BONUS
 void	init_minimap_system(t_game *game);
 void	draw_minimap_display(t_game *game);
-void	update_minimap_player_position(t_game *game, int previous_x, int previous_y);
+void	update_minimap_player_position(t_game *game, int previous_x,
+			int previous_y);
 void	put_pixel_to_minimap(t_game *game, int x, int y, int color);
 void	draw_minimap_case(t_game *game, int x, int y, int color);
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destroy_mlx_image.c                                :+:      :+:    :+:   */
+/*   destroy_mlx_memory.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/13 16:53:16 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/13 16:57:40 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/22 12:48:42 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@ static void	destroy_single_texture(void *mlx_instance, void **texture_ptr)
 
 static void	destroy_directional_textures(t_game *game)
 {
-	destroy_single_texture(game->mlx.instance, 
+	destroy_single_texture(game->mlx.instance,
 		(void **)&game->textures.north.mlx_ptr);
-	destroy_single_texture(game->mlx.instance, 
+	destroy_single_texture(game->mlx.instance,
 		(void **)&game->textures.south.mlx_ptr);
-	destroy_single_texture(game->mlx.instance, 
+	destroy_single_texture(game->mlx.instance,
 		(void **)&game->textures.east.mlx_ptr);
-	destroy_single_texture(game->mlx.instance, 
+	destroy_single_texture(game->mlx.instance,
 		(void **)&game->textures.west.mlx_ptr);
 }
 
 static void	destroy_screen_textures(t_game *game)
 {
-	destroy_single_texture(game->mlx.instance, 
+	destroy_single_texture(game->mlx.instance,
 		(void **)&game->textures.screen.mlx_ptr);
 	#ifdef BONUS
-	destroy_single_texture(game->mlx.instance, 
+	destroy_single_texture(game->mlx.instance,
 		(void **)&game->textures.minimap.mlx_ptr);
 	#endif
 }
@@ -58,7 +58,6 @@ void	cleanup_mlx_resources(t_game *game)
 		mlx_destroy_window(game->mlx.instance, game->mlx.window);
 		game->mlx.window = NULL;
 	}
-	
 	if (game->mlx.instance)
 	{
 		mlx_destroy_display(game->mlx.instance);
