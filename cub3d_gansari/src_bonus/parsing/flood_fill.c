@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 16:46:40 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/26 17:08:36 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/26 19:20:32 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,29 @@ bool	validate_open_walls(t_game *game)
 char	**create_temp_map(t_map *game)
 {
 	char	**temp_map;
-	int		i = 0;
+	int		i;
 	int		j;
 
+	i = -1;
 	temp_map = malloc(sizeof(char *) * (game->height + 1));
 	if (!temp_map)
 		return (NULL);
-	while (i < game->height)
+	while (++i < game->height)
 	{
 		temp_map[i] = malloc(sizeof(char) * (game->width + 1));
 		if (!temp_map[i])
-		{
-			while (--i >= 0)
-				free(temp_map[i]);
-			free(temp_map);
-			return (NULL);
-		}
-		j = 0;
-		while (j < game->width)
+			return (free_double_ptr(temp_map), NULL);
+		j = -1;
+		while (++j < game->width)
 		{
 			if (j < (int)ft_strlen(game->grid[i]) && game->grid[i][j] != '\n')
 				temp_map[i][j] = game->grid[i][j];
 			else
 				temp_map[i][j] = SPACE;
-			j++;
 		}
 		temp_map[i][game->width] = '\0';
-		i++;
 	}
-	temp_map[game->height] = NULL;
-	return (temp_map);
+	return (temp_map[game->height] = NULL, temp_map);
 }
 
 /**
