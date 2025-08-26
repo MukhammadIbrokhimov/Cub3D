@@ -6,7 +6,7 @@
 /*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/22 15:03:51 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/26 16:29:03 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,5 +250,7 @@ void	update_minimap_player_position(t_game *game, int previous_x,
 			int previous_y);
 void	put_pixel_to_minimap(t_game *game, int x, int y, int color);
 void	draw_minimap_case(t_game *game, int x, int y, int color);
+void	draw_all_rays_on_minimap(t_game *game);
+void	draw_ray_on_minimap(t_game *game, double ray_dir_x, double ray_dir_y);
 
 #endif
