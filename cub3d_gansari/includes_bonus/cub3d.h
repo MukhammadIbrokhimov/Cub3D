@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/26 16:29:03 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/26 18:59:30 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,11 @@ int		is_valid_file_descriptor(int fd);
 int		validate_arguments(int argc, char **argv);
 int		is_parseable_map_file(t_game *game, int fd);
 int		validate_input_file(char *filename);
+bool	validate_open_walls(t_game *game);
+int		free_double_ptr(char **ptr);
+char	**create_temp_map(t_map *game);
+int		flood_fill(char **map, int y, int x, t_map *game);
+void	print_error(char *message);
 
 /* ========================================================================== */
 /*                            MEMORY MANAGEMENT                              */
