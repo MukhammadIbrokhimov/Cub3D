@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/26 16:46:40 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/26 19:15:30 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/28 12:01:00 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ char	**create_temp_map(t_map *game)
 			if (j < (int)ft_strlen(game->grid[i]) && game->grid[i][j] != '\n')
 				temp_map[i][j] = game->grid[i][j];
 			else
-				temp_map[i][j] = SPACE;
+				temp_map[i][j] = ' ';
 		}
 		temp_map[i][game->width] = '\0';
 	}
@@ -101,9 +101,9 @@ int	flood_fill(char **map, int y, int x, t_map *game)
 {
 	if (y < 0 || y >= game->height || x < 0 || x >= game->width)
 		return (0);
-	if (map[y][x] == WALL || map[y][x] == 'X')
+	if (map[y][x] == '1' || map[y][x] == 'X')
 		return (1);
-	if (map[y][x] == SPACE && (y == 0 || y == game->height - 1 || 
+	if (map[y][x] == ' ' && (y == 0 || y == game->height - 1 || 
 		x == 0 || x == game->width - 1))
 		return (0);
 	map[y][x] = 'X';
