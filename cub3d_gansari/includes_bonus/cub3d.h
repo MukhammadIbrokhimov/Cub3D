@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/26 18:59:30 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/28 11:59:19 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@
 # include "../Libft/libft.h"
 
 /* Map characters */
-# define WALL '1'
-# define EMPTY '0'
-# define NORTHH 'N'
-# define SOUTHH 'S'
-# define EASTT 'E'
-# define WESTT 'W'
-# define SPACE ' '
+//# define WALL '1'
+//# define EMPTY '0'
+//# define NORTHH 'N'
+//# define SOUTHH 'S'
+//# define EASTT 'E'
+//# define WESTT 'W'
+//# define SPACE ' '
 # define MAX_MAP_LINES 1000
 
 /* Error messages */
