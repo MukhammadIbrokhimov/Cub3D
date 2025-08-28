@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:49:35 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/21 13:46:08 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:30:07 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,10 @@ int	parse_map_file(t_game *game, int file_descriptor)
 		return (0);
 	normalize_map_dimensions(game);
 	if (!validate_parsed_map(game))
+	{
+		free_string_array(game->map.grid);
 		return (0);
+	}
 	close(file_descriptor);
 	return (1);
 }

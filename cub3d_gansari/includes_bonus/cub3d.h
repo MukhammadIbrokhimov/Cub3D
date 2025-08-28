@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/28 11:59:19 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/28 15:32:41 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@
 # define ERR_INVALID "Invalid map"
 # define ERR_NO_PLAYER "No player found in map"
 # define ERR_MULTI_PLAYER "Multiple players found"
-# define ERR_MAP_NOT_CLOSED "Map is not surrounded by walls"
+# define ERR_MAP_NOT_CLOSED "Error\nMap is not surrounded by walls\n"
 # define ERR_INVALID_CHAR "Invalid character in map"
 # define ERR_MISSING_TEXTURE "Missing texture path"
 # define ERR_INVALID_COLOR "Invalid color format"
