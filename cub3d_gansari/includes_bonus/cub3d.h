@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/28 15:32:41 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/30 19:24:48 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ int		free_double_ptr(char **ptr);
 char	**create_temp_map(t_map *game);
 int		flood_fill(char **map, int y, int x, t_map *game);
 void	print_error(char *message);
+int		validate_parsed_map(t_game *game);
 
 /* ========================================================================== */
 /*                            MEMORY MANAGEMENT                              */
@@ -140,6 +141,7 @@ int		clean_exit_program(t_game *game);
 void	handle_parsing_error(t_game *game, char *error_message);
 int		read_and_parse_map_file(int file_descriptor, t_game *game);
 int		parse_map_file(t_game *game, int file_descriptor);
+void	normalize_map_dimensions(t_game *g);
 
 /* ========================================================================== */
 /*                            PARSING UTILITIES                              */

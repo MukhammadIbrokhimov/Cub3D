@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:25:55 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/28 15:32:32 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/08/30 19:20:49 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ int		validate_vertical_walls(t_game *game, int start_row, int start_col);
 int		validate_map_line(t_game *game, char *line_to_check, int start_col);
 int		validate_horizontal_walls(t_game *game, int start_row, int start_col);
 bool	validate_map_walls(t_game *game);
+int		validate_parsed_map(t_game *game);
 
 /* ========================================================================== */
 /*                          MAP STATISTICS                                   */

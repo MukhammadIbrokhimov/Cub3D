@@ -3,8 +3,8 @@ WE ./textures/purple.xpm
 SO ./textures/red.xpm
 EA ./textures/yellow.xpm
 
-F 000,000,000
-C 000,000, 000
+F 000,000
+C 000,000,000
   
 1110011111111111111
 1001110001000000001
