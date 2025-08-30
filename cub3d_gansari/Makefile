@@ -3,7 +3,7 @@ NAME			= cub3D
 
 # Compiler and flags
 CC				= cc
-CFLAGS			= -Wall -Wextra -Werror -O3
+CFLAGS			= -Wall -Wextra -Werror -O3 -g
 
 # Directories
 SRC_MANDATORY	= src_mandatory
