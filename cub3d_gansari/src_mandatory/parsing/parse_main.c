@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_main.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
+/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 19:49:35 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/22 17:17:46 by gansari          ###   ########.fr       */
+/*   Updated: 2025/08/30 19:10:21 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,21 @@ int	read_and_parse_map_file(int fd, t_game *g)
 	line = get_next_line(fd);
 	while (line)
 	{
+		g->map.current_line = line; // Store for potential cleanup
 		if (line[0] == '\n')
 			line[0] = ' ';
 		if (!parsing)
 			parsing = extract_map_statistics(g, line);
 		if (parsing && ft_strchr(line, '/'))
-			return (free(line), handle_parsing_error(g, ERR_INVALID_MAP), 0);
+		{
+			free(line);
+			g->map.current_line = NULL;
+			return (handle_parsing_error(g, ERR_INVALID_MAP), 0);
+		}
 		if (parsing)
 			g->map.data_buffer = join_strings(g->map.data_buffer, line);
 		free(line);
+		g->map.current_line = NULL;
 		line = get_next_line(fd);
 	}
 	buffer = "";
