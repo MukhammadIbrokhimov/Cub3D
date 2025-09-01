@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gansari <gansari@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/11 13:30:20 by gansari           #+#    #+#             */
-/*   Updated: 2025/08/30 19:22:58 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/09/01 17:10:56 by gansari          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes_mandatory/cub3d.h"
-
-void	normalize_map_dimensions(t_game *g);
 
 int	parse_map_file(t_game *game, int file_descriptor)
 {
