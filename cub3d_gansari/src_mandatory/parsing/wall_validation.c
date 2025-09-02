@@ -6,7 +6,7 @@
 /*   By: mukibrok <mukibrok@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:02:29 by mukibrok          #+#    #+#             */
-/*   Updated: 2025/08/28 15:18:13 by mukibrok         ###   ########.fr       */
+/*   Updated: 2025/09/02 15:11:59 by mukibrok         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,10 @@ bool	validate_cols(t_game *game)
 bool	validate_map_walls(t_game *game)
 {
 	if ((!validate_rows(game) || !validate_cols(game))
-		&& !validate_open_walls(game))
+		|| !validate_open_walls(game))
 	{
 		free_texture_paths(game);
+		handle_parsing_error(game, "Freed all memory\n");
 		return (false);
 	}
 	return (true);
