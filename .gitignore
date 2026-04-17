@@ -1,0 +1,32 @@
+# Build artefacts
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+*.dSYM/
+*.out
+
+# Object directories
+obj_mandatory/
+obj_bonus/
+
+# Binary
+cub3D
+cub3d
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Local MinilibX installs
+mlx_linux/
+mlx_macos/
