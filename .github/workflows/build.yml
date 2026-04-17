@@ -1,0 +1,68 @@
+name: build
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+    name: Build (mandatory + bonus)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install X11 dev libraries
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libx11-dev libxext-dev libbsd-dev zlib1g-dev
+
+      - name: Fetch MinilibX
+        run: |
+          git clone --depth=1 https://github.com/42Paris/minilibx-linux.git mlx_linux
+          cd mlx_linux
+          make
+
+      - name: Build mandatory
+        run: make
+
+      - name: Build bonus
+        run: make bonus
+
+      - name: Verify binary
+        run: |
+          test -x ./cub3D
+          file ./cub3D
+
+      - name: Clean
+        run: make fclean
+
+  static-analysis:
+    name: Static analysis (cppcheck)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install cppcheck
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cppcheck
+
+      - name: Run cppcheck on mandatory
+        run: |
+          cppcheck --enable=warning,performance,portability \
+                   --inline-suppr \
+                   --error-exitcode=1 \
+                   --suppress=missingIncludeSystem \
+                   -I includes_mandatory \
+                   src_mandatory/
+
+      - name: Run cppcheck on bonus
+        run: |
+          cppcheck --enable=warning,performance,portability \
+                   --inline-suppr \
+                   --error-exitcode=1 \
+                   --suppress=missingIncludeSystem \
+                   -I includes_bonus \
+                   src_bonus/
