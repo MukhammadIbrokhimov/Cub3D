@@ -1,142 +1,106 @@
-# 🎮 cub3D - My First RayCaster
+# cub3D
 
-> *"Relive the golden age of gaming with your own Wolfenstein 3D-inspired raycaster!"*
+[![build](https://github.com/MukhammadIbrokhimov/Cub3D/actions/workflows/build.yml/badge.svg)](https://github.com/MukhammadIbrokhimov/Cub3D/actions/workflows/build.yml)
 
-[![42 School](https://img.shields.io/badge/42-School-000000?style=flat&logo=42&logoColor=white)](https://42.fr)
-[![C](https://img.shields.io/badge/C-00599C?style=flat&logo=c&logoColor=white)](https://en.wikipedia.org/wiki/C_(programming_language))
-[![MinilibX](https://img.shields.io/badge/MinilibX-Graphics-red?style=flat)](https://github.com/42Paris/minilibx-linux)
+A first-person raycasting engine written in C, inspired by Wolfenstein 3D. Walls are rendered by casting rays across the field of view with the DDA algorithm; each ray's hit point selects a texture column and draws a vertically-scaled slice. Runs on Linux (X11 / MinilibX) and macOS. Part of the 42 Berlin Common Core.
 
-## 🚀 Overview
+Built with [Ghazaleh Ansari](https://github.com/ghazalehans).
 
-**cub3D** is a 3D graphics programming project that recreates the legendary **Wolfenstein 3D** experience using **ray-casting** techniques. This project pays homage to the world's first FPS game (1992) by Id Software, while teaching fundamental 3D graphics programming concepts.
+## Features
 
-Navigate through mysterious mazes from a first-person perspective, where mathematics meets visual artistry to create the illusion of three-dimensional space on a 2D screen.
+### Mandatory
+- DDA-based raycasting with fish-eye correction
+- Textured walls with per-direction textures (N / S / E / W)
+- Configurable floor and ceiling colours (RGB)
+- Map parser for the `.cub` format with enclosure validation via flood fill
+- Smooth WASD movement and arrow-key rotation
+- Proper exit cleanup (MLX windows, images, memory)
 
-## ✨ Features
+### Bonus
+- Minimap overlay with player position and ray visualisation
+- Extra parsing paths and texture-coordinate helpers
+- Additional maps (`cray`, `hard`, `medium`, `no_gravity`, `simple`, `zelij`) with custom Berlin-themed textures
 
-### 🎯 Core Functionality
-- **Real-time ray-casting engine** - Experience smooth 3D rendering
-- **Texture mapping** - Dynamic wall textures based on cardinal directions
-- **First-person navigation** - WASD movement with arrow key rotation  
-- **Interactive environment** - Explore mazes with realistic perspective
-- **Custom map support** - Load your own maze configurations
-- **Optimized rendering** - Efficient graphics pipeline for smooth gameplay
+## Architecture
 
-### 🎨 Visual Elements
-- **Directional textures** - Unique wall appearances for North, South, East, West
-- **Customizable colors** - Configurable floor and ceiling aesthetics
-- **Smooth animations** - Fluid movement and rotation mechanics
-- **Window management** - Professional GUI handling with proper cleanup
+```
+.cub file  ─►  parser  ─►  validated map + textures + spawn
+                               │
+                               ▼
+ keyboard ─►  game loop  ─►  raycaster (DDA)  ─►  renderer  ─►  MLX
+```
 
-### 🗺️ Map System
-- **Flexible parsing** - Support for custom `.cub` map files
-- **Robust validation** - Comprehensive error handling and map verification
-- **Simple format** - Easy-to-create maze layouts using basic characters
-- **Boundary detection** - Automatic wall collision and map boundary enforcement
+- **Parser** (`src_mandatory/parsing/`) — reads the `.cub` header, loads textures, extracts map dimensions, then runs flood fill from the spawn point to prove the map is fully enclosed.
+- **Raycaster** (`src_mandatory/raycasting/raycasting.c`) — classic DDA: compute `delta_dist` and `side_dist`, step along the grid until a wall is hit, record side and distance.
+- **Renderer** (`src_mandatory/raycasting/rendering.c`, `drawing.c`) — translates ray distance into a scaled vertical slice and draws it column-by-column into an MLX image buffer.
 
-## 🛠️ Technical Implementation
+## Build and run
 
-🏗️ Architecture
-├── Ray-casting Engine    → Core 3D rendering mathematics
-├── Texture Pipeline     → Graphics memory and image processing
-├── Input Management     → Real-time keyboard/mouse handling
-├── Map Parser          → Configuration file processing
-└── Game Loop           → Event-driven program lifecycle
+### Linux
 
-### 📋 Technologies Used
-- **Language:** C (following 42 School Norm)
-- **Graphics:** MinilibX library
-- **Mathematics:** Linear algebra, trigonometry, vector calculations
-- **Memory Management:** Manual heap allocation with leak prevention
-- **Build System:** Custom Makefile with proper dependency management
+```bash
+sudo apt-get install -y libx11-dev libxext-dev libbsd-dev zlib1g-dev
+# MinilibX auto-detected in mlx_linux/ if present, otherwise system-installed
+make          # builds cub3D (mandatory)
+make bonus    # builds with minimap
+./cub3D maps/mandatory/sample.cub
+```
 
-## 🎮 Controls
+### macOS
+
+MinilibX for macOS is expected in `mlx_macos/` at the repo root. If you don't have it, grab the 42 copy, or let `make` print the expected location.
+
+```bash
+make
+./cub3D maps/mandatory/sample.cub
+```
+
+## Controls
 
 | Key | Action |
-|-----|--------|
-| `W` `A` `S` `D` | Move through the maze |
-| `←` `→` | Rotate camera left/right |
-| `ESC` | Exit program |
+|---|---|
+| `W` / `A` / `S` / `D` | Move forward / strafe left / back / strafe right |
+| `←` / `→` | Rotate view |
+| `ESC` | Exit |
 
-## 🗂️ Map Configuration
+## Map format
 
-Create your own adventures with simple `.cub` files:
+A `.cub` file is a textures-and-colours header followed by a grid of `0` (empty) / `1` (wall) / `N S E W` (spawn facing direction):
+
+```
 NO ./textures/north_wall.xpm
 SO ./textures/south_wall.xpm
 WE ./textures/west_wall.xpm
 EA ./textures/east_wall.xpm
-F 220,100,0    # Floor color (RGB)
-C 225,30,0     # Ceiling color (RGB)
-111111111
-100000001
-101010101
-100000001
-1000N0001
-111111111
+F 220,100,0
+C 225,30,0
 
-## 🚀 Getting Started
-
-### Prerequisites
-- GCC compiler with `-Wall -Wextra -Werror` flags
-- MinilibX library
-- Math library (`-lm`)
-- X11 development libraries (Linux)
-
-### Installation & Usage
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/cub3D.git
-cd cub3D
+1111111111
+1000000001
+100N000001
+1000000001
+1111111111
 ```
 
-# Compile the project
-```
-make
-```
+The parser enforces: exactly one spawn, fully enclosed by walls, all four textures present, valid RGB colours.
 
-# Run with a map file
-./cub3D maps/sample.cub
-Building
-```make          # Compile the project
-make clean    # Remove object files
-make fclean   # Remove all generated files
-make re       # Recompile everything
-make bonus    # Compile with bonus features
-```
-🎯 Project Goals
-This project serves as an introduction to:
+## Constraints
 
-3D Graphics Programming - Understanding ray-casting and rendering pipelines
-Mathematical Applications - Practical use of geometry and trigonometry
-Game Development - Real-time graphics and user interaction
-System Programming - Memory management and performance optimization
-Collaborative Development - Team-based software engineering practices
+From the 42 subject:
 
-🏆 Bonus Features
+- C, compiled with `cc -Wall -Wextra -Werror`
+- 42 norm: 80-char lines, ≤25-line functions, no globals
+- Only MinilibX, libc, and maths functions allowed
+- No leaks (including on error paths and on exit)
+- Map validation must reject malformed input with a clear error
 
-🎯 Wall Collisions - Realistic movement boundaries
-🗺️ Minimap System - Real-time navigation aid
-🚪 Interactive Doors - Open/close mechanics
-🎭 Animated Sprites - Dynamic game elements
-🖱️ Mouse Controls - Enhanced camera manipulation
+## What was technically hard
 
-👥 Team Development
-This project is designed for collaborative development between two programmers:
+- **Flood-fill enclosure check**: proving the map is closed in the face of irregular shapes, odd spacing, and trailing characters.
+- **Texture selection per ray hit**: deciding which of the four textures applies based on which side of the grid cell was hit, then mapping pixel columns correctly without stretching.
+- **MLX memory ownership**: every image and window handle must be destroyed before exit; a single stray handle causes a visible leak.
+- **Avoiding fish-eye distortion**: using perpendicular distance instead of Euclidean distance when computing wall-slice height.
 
-🎨 Graphics Engineer - Ray-casting, rendering, textures
-🎮 Game Systems Engineer - Input handling, parsing, game logic
+## Authors
 
-🎓 Learning Outcomes
-By completing this project, developers gain hands-on experience with:
-
-Low-level graphics programming
-Mathematical problem-solving in software
-Real-time system constraints
-Memory-efficient algorithm design
-Cross-platform development considerations
-
-📄 License
-This project is part of the 42 School curriculum. Educational use only.
-
-Built with ❤️ by aspiring game developers at 42 School
+[Mukhammad Ibrokhimov](https://github.com/MukhammadIbrokhimov) and [Ghazaleh Ansari](https://github.com/ghazalehans).

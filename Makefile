@@ -133,8 +133,8 @@ else ifeq ($(OS), Darwin)
 endif
 
 # Include flags
-MANDATORY_INCLUDES = -I$(INCLUDES_MANDATORY) -I$(LIBFT_DIR) $(INCLUDES_MLX)
-BONUS_INCLUDES = -I$(INCLUDES_BONUS) -I$(LIBFT_DIR) $(INCLUDES_MLX)
+MANDATORY_INCLUDES = -Iincludes_mandatory -I$(LIBFT_DIR) $(INCLUDES_MLX)
+BONUS_INCLUDES = -Iincludes_bonus -I$(LIBFT_DIR) $(INCLUDES_MLX)
 
 # Colors for pretty output
 RED				= \033[0;31m
