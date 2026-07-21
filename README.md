@@ -103,4 +103,4 @@ From the 42 subject:
 
 ## Authors
 
-[Mukhammad Ibrokhimov](https://github.com/MukhammadIbrokhimov) and [Ghazaleh Ansari](https://github.com/ghazalehans).
+[Mukhammad Ibrokhimov](https://github.com/MukhammadIbrokhimov) and [Ghazaleh Ansari](https://github.com/Ghazaleh-ans).
